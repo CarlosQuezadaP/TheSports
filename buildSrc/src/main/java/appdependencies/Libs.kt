@@ -8,4 +8,7 @@ object Libs {
     const val material = "com.google.android.material:material:${Versions.material}"
     const val constraintlayout =
         "androidx.constraintlayout:constraintlayout:${Versions.constraintLayout}"
+
+    const val kotlin_coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}"
+    const val kotlin_coroutines_android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines}"
 }

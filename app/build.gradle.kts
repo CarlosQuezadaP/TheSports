@@ -5,7 +5,7 @@ import appdependencies.Builds.COMPILE_VERSION
 import appdependencies.Builds.MIN_VERSION
 import appdependencies.Builds.TARGET_VERSION
 import appdependencies.Versions
-import appdependencies.Plugins
+import appdependencies.Libs
 
 
 plugins {
@@ -52,10 +52,13 @@ dependencies {
 
     implementation(appdependencies.Libs.stdlib)
 
-    implementation(appdependencies.Libs.constraintlayout)
-    implementation(appdependencies.Libs.androidx_core)
-    implementation(appdependencies.Libs.material)
-    implementation(appdependencies.Libs.appcompat)
+    implementation(Libs.constraintlayout)
+    implementation(Libs.androidx_core)
+    implementation(Libs.material)
+    implementation(Libs.appcompat)
+
+    implementation(Libs.kotlin_coroutines)
+    implementation(Libs.kotlin_coroutines_android)
 
     testImplementation("junit:junit:4.+")
     androidTestImplementation("androidx.test.ext:junit:1.1.2")
