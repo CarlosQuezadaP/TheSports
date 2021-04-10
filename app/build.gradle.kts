@@ -9,8 +9,8 @@ import appdependencies.Libs
 
 
 plugins {
-    id("com.android.application")
-    id("kotlin-android")
+    id(appdependencies.Plugins.id_android_app)
+    id(appdependencies.Plugins.id_kotlin_android)
 }
 
 android {
@@ -50,7 +50,7 @@ android {
 
 dependencies {
 
-    implementation(appdependencies.Libs.stdlib)
+    implementation(project(appdependencies.Modules.core))
 
     implementation(Libs.constraintlayout)
     implementation(Libs.androidx_core)

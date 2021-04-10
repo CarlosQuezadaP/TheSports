@@ -35,5 +35,5 @@ android {
 }
 
 dependencies {
-    implementation(project(appdependencies.Modules.core))
+    implementation(appdependencies.Libs.stdlib)
 }

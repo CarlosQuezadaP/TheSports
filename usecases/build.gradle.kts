@@ -1,4 +1,5 @@
 import appdependencies.Builds
+import appdependencies.Builds.APP_ID
 import appdependencies.Builds.BUILD_TOOLS
 import appdependencies.Builds.COMPILE_VERSION
 import appdependencies.Builds.MIN_VERSION
@@ -7,8 +8,8 @@ import appdependencies.Versions
 
 
 plugins {
-    id("com.android.application")
-    id("kotlin-android")
+    id(appdependencies.Plugins.id_android_library)
+    id(appdependencies.Plugins.id_kotlin_android)
 }
 
 android {
@@ -21,7 +22,6 @@ android {
         versionName = Builds.App.VERSION_NAME
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
-
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -35,5 +35,5 @@ android {
 }
 
 dependencies {
-    implementation(appdependencies.Libs.stdlib)
+    implementation(project(appdependencies.Modules.core))
 }
