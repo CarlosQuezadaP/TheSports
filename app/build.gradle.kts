@@ -45,6 +45,11 @@ android {
         jvmTarget = Versions.jvmTarget
     }
 
+    buildFeatures {
+        dataBinding = true
+        viewBinding = true
+    }
+
 
 }
 

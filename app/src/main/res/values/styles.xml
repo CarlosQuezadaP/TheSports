@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="titleText" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">@dimen/multiplier_7sp</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="secundarytitleText" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">@dimen/multiplier_5sp</item>
+    </style>
+
+</resources>

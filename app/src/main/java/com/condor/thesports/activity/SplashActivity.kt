@@ -3,7 +3,6 @@ package com.condor.thesports.activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.condor.thesports.MainActivity
 import com.condor.thesports.R
 import kotlinx.coroutines.*
 

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="multiplier_1dp">2dp</dimen>
+    <dimen name="multiplier_4dp">8dp</dimen>
+    <dimen name="multiplier_5dp">10dp</dimen>
+    <dimen name="multiplier_6dp">12dp</dimen>
+    <dimen name="multiplier_7dp">14dp</dimen>
+    <dimen name="multiplier_8dp">16dp</dimen>
+    <dimen name="multiplier_9dp">18dp</dimen>
+    <dimen name="multiplier_10dp">20dp</dimen>
+    <dimen name="multiplier_11dp">22dp</dimen>
+    <dimen name="multiplier_12dp">24dp</dimen>
+
+
+    <dimen name="multiplier_60dp">120dp</dimen>
+
+    <dimen name="multiplier_1sp">2sp</dimen>
+    <dimen name="multiplier_4sp">8sp</dimen>
+    <dimen name="multiplier_5sp">10sp</dimen>
+    <dimen name="multiplier_6sp">10sp</dimen>
+    <dimen name="multiplier_7sp">14sp</dimen>
+    <dimen name="multiplier_8sp">16sp</dimen>
+    <dimen name="multiplier_9sp">18sp</dimen>
+    <dimen name="multiplier_10sp">20sp</dimen>
+    <dimen name="multiplier_11sp">22sp</dimen>
+    <dimen name="multiplier_12sp">24sp</dimen>
+    <dimen name="multiplier_13sp">26sp</dimen>
+    <dimen name="multiplier_14sp">28sp</dimen>
+
+</resources>
