@@ -10,9 +10,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".activity.MainActivity"
         android:orientation="vertical"
-        >
+        tools:context=".activity.MainActivity">
 
 
         <TextView
@@ -23,13 +22,9 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView_teams"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:listitem="@layout/item_layout_teams"
-            >
-
-
-
-        </androidx.recyclerview.widget.RecyclerView>
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            tools:listitem="@layout/item_layout_teams" />
 
 
     </LinearLayout>

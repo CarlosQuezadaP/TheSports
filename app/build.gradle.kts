@@ -4,13 +4,15 @@ import appdependencies.Builds.BUILD_TOOLS
 import appdependencies.Builds.COMPILE_VERSION
 import appdependencies.Builds.MIN_VERSION
 import appdependencies.Builds.TARGET_VERSION
-import appdependencies.Versions
 import appdependencies.Libs
-
+import appdependencies.Versions
 
 plugins {
     id(appdependencies.Plugins.id_android_app)
     id(appdependencies.Plugins.id_kotlin_android)
+    kotlin(appdependencies.Plugins.kotlin_android)
+    kotlin(appdependencies.Plugins.kotlin_android_extensions)
+    kotlin(appdependencies.Plugins.kotlin_kapt)
 }
 
 android {
@@ -29,7 +31,6 @@ android {
             isMinifyEnabled = false
             isDebuggable = true
         }
-
         getByName("release") {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
@@ -49,22 +50,33 @@ android {
         dataBinding = true
         viewBinding = true
     }
-
-
 }
 
 dependencies {
 
-    implementation(project(appdependencies.Modules.core))
+    //modules
+    api(project(appdependencies.Modules.core))
+    api(project(appdependencies.Modules.usecases))
+    api(project(appdependencies.Modules.domain))
+    api(project(appdependencies.Modules.data))
 
+    //Libraries
+    implementation(Libs.Glide.glide)
+    implementation(Libs.Koin.koin)
+    implementation(Libs.Koin.koinViewModel)
+    implementation(Libs.kotlin_coroutines)
+    implementation(Libs.kotlin_coroutines_android)
+    implementation(Libs.Lifecycle.viewmodelKtx)
     implementation(Libs.constraintlayout)
     implementation(Libs.androidx_core)
     implementation(Libs.material)
     implementation(Libs.appcompat)
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:${rootProject.extra["kotlin_version"]}")
+    implementation("androidx.legacy:legacy-support-v4:1.0.0")
 
-    implementation(Libs.kotlin_coroutines)
-    implementation(Libs.kotlin_coroutines_android)
+    kapt(Libs.Glide.glide_compiler)
 
+    //Test
     testImplementation("junit:junit:4.+")
     androidTestImplementation("androidx.test.ext:junit:1.1.2")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.3.0")
