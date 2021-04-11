@@ -1,6 +1,2 @@
-include ':usecases'
-include ':domain'
-include ':core'
-include ':data'
-include ':app'
+include(":app",":core", ":data",":usecases",":domain")
 rootProject.name = "The Sports"

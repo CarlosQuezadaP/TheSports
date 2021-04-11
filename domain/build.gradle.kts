@@ -6,7 +6,6 @@ import appdependencies.Builds.MIN_VERSION
 import appdependencies.Builds.TARGET_VERSION
 import appdependencies.Versions
 
-
 plugins {
     id(appdependencies.Plugins.id_android_library)
     id(appdependencies.Plugins.id_kotlin_android)
@@ -30,8 +29,6 @@ android {
     kotlinOptions {
         jvmTarget = Versions.jvmTarget
     }
-
-
 }
 
 dependencies {
