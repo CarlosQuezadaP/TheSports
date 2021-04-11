@@ -1,15 +1,18 @@
 import appdependencies.Builds
-import appdependencies.Builds.APP_ID
 import appdependencies.Builds.BUILD_TOOLS
 import appdependencies.Builds.COMPILE_VERSION
 import appdependencies.Builds.MIN_VERSION
 import appdependencies.Builds.TARGET_VERSION
+import appdependencies.Libs
 import appdependencies.Versions
 
 
 plugins {
     id(appdependencies.Plugins.id_android_library)
     id(appdependencies.Plugins.id_kotlin_android)
+    kotlin(appdependencies.Plugins.kotlin_android)
+    kotlin(appdependencies.Plugins.kotlin_android_extensions)
+    kotlin(appdependencies.Plugins.kotlin_kapt)
 }
 
 android {
@@ -36,4 +39,19 @@ android {
 
 dependencies {
     implementation(project(appdependencies.Modules.core))
+    implementation(project(appdependencies.Modules.domain))
+
+    implementation(Libs.Koin.koin)
+
+    implementation(Libs.Retrofit.core)
+    implementation(Libs.Retrofit.adapter)
+    implementation(Libs.Retrofit.gson)
+
+    implementation(Libs.Okhttp.okhttp)
+    implementation(Libs.Okhttp.logging)
+
+    implementation(Libs.Room.runtime)
+    implementation(Libs.Room.ktx)
+    kapt(Libs.Room.kaptcompiler)
+
 }
