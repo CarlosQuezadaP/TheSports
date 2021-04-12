@@ -8,7 +8,7 @@ import com.condor.domain.models.LeagueDomain
 class DataSourceRemoteLeague(val sportApi: SportApi, private val iConverter: IConverter) :
     ILeagueRemoteRepository {
     override suspend fun getAllLeagues(): List<LeagueDomain> {
-        return sportApi.getAllLeagues().leagueDtos.map {
+        return sportApi.getAllLeagues().leagues.map {
             iConverter.convertLeagueDtoToDomain(it)
         }
     }

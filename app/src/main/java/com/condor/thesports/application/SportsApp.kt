@@ -3,6 +3,7 @@ package com.condor.thesports.application
 import android.app.Application
 import com.condor.data.di.*
 import com.condor.thesports.di.detailModule
+import com.condor.thesports.di.leagueModule
 import com.condor.thesports.di.mainModule
 import com.condor.usecases.di.usecaseGetAllEvent
 import com.condor.usecases.di.usecaseGetAllLeagues
@@ -24,6 +25,7 @@ class SportsApp : Application() {
                 listOf(
                     mainModule,
                     detailModule,
+                    leagueModule,
 
                     databaseModule,
                     networkModule,
@@ -33,9 +35,6 @@ class SportsApp : Application() {
                     handlerEventRepositoriesModule,
                     handlerLeagueRepositoriesModule,
 
-
-
-
                     eventRepositoryModule,
                     leagueRepositoryModule,
                     teamRepositoriesModule,
@@ -44,20 +43,8 @@ class SportsApp : Application() {
                     usecaseGetAllEvent,
                     usecaseGetAllLeagues,
                     usecaseGetTeam,
-
                     )
             )
         }
     }
-
-    /*
-              dataSourceLeagueLocalModule,
-                    dataSourceEventLocalModule,
-                    dataSourceTeamLocalModule,
-
-                    dataSourceEventRemoteModule,
-                    dataSourceTeamRemoteModule,
-                    dataSourceLeagueRemoteModule,
-     */
-
 }

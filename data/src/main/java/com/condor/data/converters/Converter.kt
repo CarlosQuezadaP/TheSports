@@ -50,10 +50,10 @@ class Converter : IConverter {
             teamDto.strWebsite,
             teamDto.strFacebook,
             teamDto.strTwitter,
-            teamDto.strInstagram,
-            teamDto.strDescriptionEN,
-            teamDto.strTeamBadge,
-            teamDto.strTeamJersey,
+            teamDto.strInstagram ?: "",
+            teamDto.strDescriptionEN ?: "",
+            teamDto.strTeamBadge  ?: "",
+            teamDto.strTeamJersey ?: "",
             teamDto.strYoutube
         )
     }

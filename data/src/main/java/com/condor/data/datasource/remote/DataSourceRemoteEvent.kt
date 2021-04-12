@@ -14,7 +14,7 @@ class DataSourceRemoteEvent(private val sportService: SportApi, private val iCon
     }
 
     override suspend fun getById(id: String): List<EventDomain> {
-        return sportService.getAllEventsByTeamId(id).events.map {
+        return sportService.getAllEventsByTeamId(id).results.map {
             iConverter.convertEventDtoToDomain(it)
         }
     }

@@ -11,6 +11,6 @@ data class TeamDto(
     val strInstagram: String = "",
     val strDescriptionEN: String = "",
     val strTeamBadge: String = "",
-    val strTeamJersey: String = "",
+    val strTeamJersey: String? = "",
     val strYoutube: String = ""
 )

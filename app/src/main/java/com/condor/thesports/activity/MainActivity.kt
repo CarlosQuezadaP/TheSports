@@ -3,11 +3,8 @@ package com.condor.thesports.activity
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.condor.thesports.R
 import com.condor.thesports.databinding.ActivityMainBinding
@@ -18,9 +15,6 @@ class MainActivity : AppCompatActivity() {
 
     var mainBinding: ActivityMainBinding? = null
 
-    private val appBarConfiguration: AppBarConfiguration by lazy {
-        AppBarConfiguration.Builder(setOf(R.id.listTeams, R.id.detailTeamFragment)).build()
-    }
 
     private val navController: NavController by lazy { findNavController(R.id.fragment_nav_host) }
 
@@ -31,13 +25,10 @@ class MainActivity : AppCompatActivity() {
         mainBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mainBinding!!.root)
 
-        val tlbMain = findViewById<Toolbar>(R.id.tlb_main)
-        setSupportActionBar(tlbMain)
 
         val btmNavMain = findViewById<BottomNavigationView>(R.id.bottom_navigation)
 
         btmNavMain.setupWithNavController(navController)
-        setupActionBarWithNavController(navController, appBarConfiguration)
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
@@ -45,7 +36,6 @@ class MainActivity : AppCompatActivity() {
                 else -> btmNavMain.visibility = View.GONE
             }
         }
-
     }
 
     override fun onSupportNavigateUp(): Boolean {
