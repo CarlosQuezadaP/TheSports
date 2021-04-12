@@ -30,4 +30,11 @@
         <item name="android:maxLines">2</item>
     </style>
 
+    <style name="Theme.Transparent" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@color/black_transparent</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+
 </resources>
