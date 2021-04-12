@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -19,6 +20,7 @@ import com.condor.thesports.helpers.setExitToFullScreenTransition
 import com.condor.thesports.helpers.setReturnFromFullScreenTransition
 import com.condor.thesports.viewmodels.TeamsListViewModel
 import org.koin.android.ext.android.inject
+
 
 class ListTeams : Fragment(), OnTeamClick {
 
@@ -42,9 +44,17 @@ class ListTeams : Fragment(), OnTeamClick {
 
         teamsListViewModel.getTeams("Spanish La Liga")
 
+        updateToolbarTitle("Spanish La Liga")
+
         observeTeams()
 
         return listTeamBinding.root
+    }
+
+    private fun updateToolbarTitle(title: String) {
+        (activity as AppCompatActivity).supportActionBar.let {
+            it!!.title = title
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

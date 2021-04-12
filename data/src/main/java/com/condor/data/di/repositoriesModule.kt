@@ -1,31 +1,31 @@
 package com.condor.data.di
 
-import com.condor.data.repository.LeagueRemoteRepository
-import com.condor.data.repository.LocalLeagueRepository
-import com.condor.data.repository.LocalRepository
-import com.condor.data.repository.RemoteRepository
-import com.condor.data.datasource.local.LocalDataSourceEvent
-import com.condor.data.datasource.local.LocalDataSourceLeague
-import com.condor.data.datasource.local.LocalDataSourceTeam
-import com.condor.data.datasource.remote.EventRepositoryImpl
-import com.condor.data.datasource.remote.RemoteRetrofitLeague
-import com.condor.data.datasource.remote.TeamRepositoryImpl
+import com.condor.data.repository.ILeagueRemoteRepository
+import com.condor.data.repository.ILeagueLocalRepository
+import com.condor.data.repository.ILocalRepository
+import com.condor.data.repository.IRemoteRepository
+import com.condor.data.datasource.local.DataSourceLocalEvent
+import com.condor.data.datasource.local.DataSourceLocalLeague
+import com.condor.data.datasource.local.DataSourceLocalTeam
+import com.condor.data.datasource.remote.DataSourceRemoteEvent
+import com.condor.data.datasource.remote.DataSourceRemoteLeague
+import com.condor.data.datasource.remote.DataSourceRemoteTeam
 import com.condor.domain.models.EventDomain
 import com.condor.domain.models.TeamDomain
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
 val teamRepositoriesModule = module {
-    single<RemoteRepository<TeamDomain>>(named("remote_team")) { TeamRepositoryImpl(get(), get()) }
-    single<LocalRepository<TeamDomain>> (named("local_team")){ LocalDataSourceTeam(get(), get()) }
+    single<IRemoteRepository<TeamDomain>>(named("remote_team")) { DataSourceRemoteTeam(get(), get()) }
+    single<ILocalRepository<TeamDomain>> (named("local_team")){ DataSourceLocalTeam(get(), get()) }
 }
 
 val eventRepositoryModule = module {
-    single<RemoteRepository<EventDomain>>(named("remote_event")) { EventRepositoryImpl(get(), get()) }
-    single<LocalRepository<EventDomain>> (named("local_event")){ LocalDataSourceEvent(get(), get()) }
+    single<IRemoteRepository<EventDomain>>(named("remote_event")) { DataSourceRemoteEvent(get(), get()) }
+    single<ILocalRepository<EventDomain>> (named("local_event")){ DataSourceLocalEvent(get(), get()) }
 }
 
 val leagueRepositoryModule = module {
-    single<LeagueRemoteRepository> { RemoteRetrofitLeague(get(), get()) }
-    single<LocalLeagueRepository> { LocalDataSourceLeague(get(), get()) }
+    single<ILeagueRemoteRepository> { DataSourceRemoteLeague(get(), get()) }
+    single<ILeagueLocalRepository> { DataSourceLocalLeague(get(), get()) }
 }

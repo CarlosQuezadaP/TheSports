@@ -12,7 +12,7 @@ import com.condor.domain.models.TeamDomain
 
 class Converter : IConverter {
     override fun convertEventDtoToDomain(eventDto: EventDto): EventDomain {
-        return EventDomain(eventDto.idEvent, eventDto.idTeam, eventDto.strEvent)
+        return EventDomain(eventDto.idEvent, eventDto.idHomeTeam, eventDto.strEvent)
     }
 
     override fun convertEventDomainToEntity(eventDomain: EventDomain): EventEntity {

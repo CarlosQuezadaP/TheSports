@@ -1,11 +1,30 @@
 package com.condor.usecases.di
 
-import com.condor.usecases.IRetrieveAllTeams
-import com.condor.usecases.RetrieveAllTeams
+import com.condor.usecases.*
 import org.koin.dsl.module
 
-val usecaseRetrieveAllTeams = module {
-    single<IRetrieveAllTeams> {
-        RetrieveAllTeams(get())
+val usecaseGetAllTeams = module {
+    single<IGetAllTeamsUseCase> {
+        GetAllTeamsUseCase(get())
     }
 }
+
+val usecaseGetAllEvent = module {
+    single<IGetAllEventsUseCase> {
+        GetAllEventsUseCase(get())
+    }
+}
+
+
+val usecaseGetAllLeagues = module {
+    single<IGetAllLeaguesUseCase> {
+        GetAllLeaguesUseCase(get())
+    }
+}
+
+val usecaseGetTeam = module {
+    single<IGetTeamUseCase> {
+        GetTeamUseCase(get())
+    }
+}
+

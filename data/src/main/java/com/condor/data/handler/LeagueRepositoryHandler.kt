@@ -1,31 +1,31 @@
 package com.condor.data.handler
 
 import com.condor.core.ResultWrapper
-import com.condor.data.repository.LeagueRemoteRepository
-import com.condor.data.repository.LocalLeagueRepository
+import com.condor.data.repository.ILeagueLocalRepository
+import com.condor.data.repository.ILeagueRemoteRepository
 import com.condor.domain.models.LeagueDomain
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 
 class LeagueRepositoryHandler constructor(
-    val localLeagueRepository: LocalLeagueRepository,
-    val remoteRepository: LeagueRemoteRepository
+    val iLeagueLocalRepository: ILeagueLocalRepository,
+    val iLeagueRemoteRepository: ILeagueRemoteRepository
 ) {
 
-    private fun toFlowRetrieveAllLeagues(): Flow<List<LeagueDomain>> {
+    private fun getAllLeaguesToFlow(): Flow<List<LeagueDomain>> {
         return flow {
-            val response: List<LeagueDomain> = remoteRepository.retrieveAllLeagues()
-            localLeagueRepository.saveLeagues(response)
+            val response: List<LeagueDomain> = iLeagueRemoteRepository.getAllLeagues()
+            iLeagueLocalRepository.saveLeagues(response)
             emit(response)
         }
     }
 
-    fun retrieveAllLeagues(): Flow<ResultWrapper<List<LeagueDomain>>> {
-        return localLeagueRepository.getLeagues().flatMapLatest { leagues: List<LeagueDomain> ->
+    fun getAllLeagues(): Flow<ResultWrapper<List<LeagueDomain>>> {
+        return iLeagueLocalRepository.getLeagues().flatMapLatest { leagues: List<LeagueDomain> ->
             if (leagues.isNotEmpty()) {
                 flowOf(leagues)
             } else {
-                toFlowRetrieveAllLeagues()
+                getAllLeaguesToFlow()
             }
         }.map { leagues: List<LeagueDomain> ->
             val result: ResultWrapper<List<LeagueDomain>> = ResultWrapper.Success(leagues)

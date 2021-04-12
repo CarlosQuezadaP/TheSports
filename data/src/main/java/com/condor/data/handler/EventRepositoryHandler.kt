@@ -1,18 +1,18 @@
 package com.condor.data.handler
 
-import com.condor.data.dto.EventDto
-import com.condor.data.repository.LocalRepository
-import com.condor.data.repository.RemoteRepository
+import com.condor.data.repository.ILocalRepository
+import com.condor.data.repository.IRemoteRepository
+import com.condor.domain.models.EventDomain
 
 class EventRepositoryHandler constructor(
-    localRepository: LocalRepository<EventDto>,
-    remoteRepository: RemoteRepository<EventDto>
-) : RepositoryHandler<EventDto>(localRepository, remoteRepository) {
+    iLocalRepository: ILocalRepository<EventDomain>,
+    iRemoteRepository: IRemoteRepository<EventDomain>
+) : RepositoryHandler<EventDomain>(iLocalRepository, iRemoteRepository) {
 
 
-    override suspend fun localSave(dataList: List<EventDto>, id: String) {
-        dataList.forEach { event: EventDto ->
-            localRepository.save(event.apply { idTeam = id })
+    override suspend fun localSave(dataList: List<EventDomain>, id: String) {
+        dataList.forEach { event: EventDomain ->
+            iLocalRepository.save(event.apply { idTeam = id })
         }
     }
 }

@@ -6,18 +6,18 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.condor.core.ResultWrapper
 import com.condor.domain.models.TeamDomain
-import com.condor.usecases.IRetrieveAllTeams
+import com.condor.usecases.IGetAllTeamsUseCase
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
-class TeamsListViewModel(private val retrieveAllTeams: IRetrieveAllTeams) : ViewModel() {
+class TeamsListViewModel(private val getAllTeamsUseCase: IGetAllTeamsUseCase) : ViewModel() {
 
     private var _lvTeams: MutableLiveData<ResultWrapper<List<TeamDomain>>> = MutableLiveData()
     var lvTeams: LiveData<ResultWrapper<List<TeamDomain>>> = _lvTeams
 
     fun getTeams(leagueParameter: String) {
         viewModelScope.launch {
-            retrieveAllTeams.invoke(leagueParameter).collect {
+            getAllTeamsUseCase.invoke(leagueParameter).collect {
                 _lvTeams.value = it
             }
         }

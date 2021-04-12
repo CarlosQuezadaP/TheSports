@@ -1,19 +1,19 @@
 package com.condor.data.handler
 
 import com.condor.core.ResultWrapper
-import com.condor.data.repository.LocalRepository
-import com.condor.data.repository.RemoteRepository
+import com.condor.data.repository.ILocalRepository
+import com.condor.data.repository.IRemoteRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 
 abstract class RepositoryHandler<T>(
-    val localRepository: LocalRepository<T>,
-    val remoteRepository: RemoteRepository<T>
+    val iLocalRepository: ILocalRepository<T>,
+    val iRemoteRepository: IRemoteRepository<T>
 ) {
 
     private fun getAllToFlow(leagueParameter: String): Flow<List<T>> {
         return flow {
-            val response: List<T> = remoteRepository.getAll(leagueParameter)
+            val response: List<T> = iRemoteRepository.getAll(leagueParameter)
             localSave(response)
             emit(response)
         }
@@ -21,8 +21,8 @@ abstract class RepositoryHandler<T>(
 
     private fun getByIdToFlow(id: String): Flow<List<T>> {
         return flow {
-            val response: List<T> = remoteRepository.getById(id)
-
+            val response: List<T> = iRemoteRepository.getById(id)
+            localSave(response, id)
             emit(response)
         }
     }
@@ -35,7 +35,7 @@ abstract class RepositoryHandler<T>(
     }
 
     fun getById(id: String): Flow<ResultWrapper<List<T>>> {
-        return localRepository.getById(id).flatMapConcat { localData: List<T> ->
+        return iLocalRepository.getById(id).flatMapConcat { localData: List<T> ->
             if (localData.isNotEmpty())
                 flowOf(localData)
             else {
