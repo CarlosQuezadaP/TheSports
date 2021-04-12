@@ -8,11 +8,10 @@ object Versions {
     const val circleImage = "3.1.0"
     const val lifecycle = "2.2.0"
     const val google = "4.3.3"
-    const val appCompatX = "1.1.0"
-    const val constraintLayout = "1.1.3"
+    const val appCompatX = "1.2.0"
+    const val android_legacy = "1.0.0"
+    const val constraintLayout = "2.0.4"
     const val material = "1.1.0"
-    const val junit = "4.13.2"
-    const val espresso = "3.3.0"
     const val runner = "1.0.2"
 
     const val coroutines = "1.4.2"
@@ -27,6 +26,17 @@ object Versions {
     object Navigation {
         const val fragment = "2.2.0-rc02"
         const val ui = "2.2.0-rc02"
+    }
+
+    object Test{
+        const val junit = "4.13.2"
+        const val test_junit = "1.1.2"
+        const val espresso = "3.3.0"
+        const val androidx_tesst = "1.3.0"
+        const val coroutines_test = "1.3.9"
+        const val core_testing = "2.1.0"
+        const val mock_io = "1.10.6"
+        const val mock_io_android = "1.10.2"
     }
 
 }

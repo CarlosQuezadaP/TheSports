@@ -55,9 +55,6 @@ android {
 
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib:${rootProject.extra["kotlin_version"]}")
-    implementation("androidx.legacy:legacy-support-v4:1.0.0")
-    implementation("androidx.appcompat:appcompat:1.2.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.0.4")
 
     //modules
     api(project(appdependencies.Modules.core))
@@ -70,21 +67,26 @@ dependencies {
     implementation(Libs.Koin.koin)
     implementation(Libs.Koin.koinViewModel)
     implementation(Libs.Koin.koinFragment)
-    implementation(Libs.kotlin_coroutines)
-    implementation(Libs.kotlin_coroutines_android)
-    implementation(Libs.Lifecycle.viewmodelKtx)
-    implementation(Libs.constraintlayout)
-    implementation(Libs.androidx_core)
-    implementation(Libs.material)
-    implementation(Libs.appcompat)
     implementation(Libs.Core.navigationFragmentKtx)
     implementation(Libs.Core.navigationUiKtx)
+    implementation(Libs.Lifecycle.viewmodelKtx)
+    implementation(Libs.kotlin_coroutines)
+    implementation(Libs.android_legacy)
+    implementation(Libs.kotlin_coroutines_android)
+    implementation(Libs.constraintlayout)
+    implementation(Libs.appcompat)
+    implementation(Libs.androidx_core)
+    implementation(Libs.material)
     implementation(Libs.circleImage)
+    implementation(Libs.kotlin_reflect)
 
     kapt(Libs.Glide.glide_compiler)
 
     //Test
-    testImplementation("junit:junit:4.+")
-    androidTestImplementation("androidx.test.ext:junit:1.1.2")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.3.0")
+    testImplementation(Libs.Testing.junit)
+    androidTestImplementation(Libs.Testing.test_junit)
+    androidTestImplementation(Libs.Testing.espresso_core)
+    androidTestImplementation(Libs.Testing.espresso_contrib)
+    androidTestImplementation(Libs.Testing.test_core)
+    androidTestImplementation(Libs.Testing.test_rules)
 }
