@@ -17,7 +17,7 @@ class TeamsListViewModel(private val retrieveAllTeams: IRetrieveAllTeams) : View
 
     fun getTeams(leagueParameter: String) {
         viewModelScope.launch {
-            retrieveAllTeams.retrieveTeams(leagueParameter).collect {
+            retrieveAllTeams.invoke(leagueParameter).collect {
                 _lvTeams.value = it
             }
         }

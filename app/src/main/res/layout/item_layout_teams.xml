@@ -3,9 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="team"
             type="com.condor.domain.models.TeamDomain" />
+
+        <variable
+            name="clickTeam"
+            type="com.condor.thesports.handlers.OnTeamClick" />
 
     </data>
 
@@ -14,6 +19,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/multiplier_4dp"
         android:elevation="@dimen/multiplier_5dp"
+        android:onClick="@{() -> clickTeam.onClick(team)}"
+        android:padding="@dimen/multiplier_2dp"
         app:cardCornerRadius="@dimen/multiplier_5dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -24,22 +31,21 @@
             <TextView
                 android:id="@+id/textView_teamTitle"
                 style="@style/titleText"
-                android:text="@{team.strTeam}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@{team.strTeam}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-              />
+                app:layout_constraintTop_toTopOf="parent" />
 
 
             <ImageView
                 android:id="@+id/imageView_team"
                 android:layout_width="@dimen/multiplier_60dp"
                 android:layout_height="@dimen/multiplier_60dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginStart="@dimen/multiplier_4dp"
+                android:layout_marginTop="@dimen/multiplier_4dp"
+                android:layout_marginEnd="@dimen/multiplier_4dp"
                 app:imageUrl="@{team.strTeamBadge}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -52,9 +58,10 @@
                 style="@style/secundarytitleText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:text="Estadio"
+                android:layout_marginStart="@dimen/multiplier_4dp"
+                android:layout_marginTop="@dimen/multiplier_2dp"
+                android:layout_marginEnd="@dimen/multiplier_2dp"
+                android:text="@string/estadium"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -63,9 +70,11 @@
             <TextView
                 android:id="@+id/tvStadiumNameItem"
                 style="@style/titleText"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="@dimen/multiplier_4dp"
+                android:layout_marginTop="@dimen/multiplier_2dp"
+                android:layout_marginEnd="@dimen/multiplier_2dp"
                 android:text="@{team.strStadium}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"

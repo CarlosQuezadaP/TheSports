@@ -2,65 +2,35 @@ package com.condor.thesports.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.condor.core.ResultWrapper
-import com.condor.domain.models.TeamDomain
-import com.condor.thesports.adapter.TeamsAdapter
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
+import androidx.navigation.ui.setupWithNavController
+import com.condor.thesports.R
 import com.condor.thesports.databinding.ActivityMainBinding
-import com.condor.thesports.viewmodels.TeamsListViewModel
-import org.koin.android.ext.android.inject
+import kotlinx.android.synthetic.main.activity_main.*
+import org.koin.androidx.fragment.android.setupKoinFragmentFactory
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var mainBinding: ActivityMainBinding
-    private val teamsListViewModel: TeamsListViewModel by inject()
-    private lateinit var teamsAdapter: TeamsAdapter
+    var mainBinding: ActivityMainBinding? = null
+    private val navController: NavController by lazy { findNavController(R.id.fragment_nav_host) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setupKoinFragmentFactory()
         super.onCreate(savedInstanceState)
-        setupDataBinding()
-        setupRecyclerView()
 
-        teamsListViewModel.getTeams("Spanish La Liga")
-
-        observeTeams()
-    }
-
-    private fun setupDataBinding() {
         mainBinding = ActivityMainBinding.inflate(layoutInflater)
-
-        mainBinding.apply {
-            lifecycleOwner = this@MainActivity
-        }
-
-        setContentView(mainBinding.root)
+        setContentView(mainBinding!!.root)
+        bottom_navigation.setupWithNavController(navController)
     }
 
-    private fun observeTeams() {
-        teamsListViewModel.lvTeams.observe(this, { resultWrapper: ResultWrapper<List<TeamDomain>> ->
-            when (resultWrapper) {
-                is ResultWrapper.Loading -> {
-                }
-                is ResultWrapper.Success -> {
-                    val data = resultWrapper.data
-                    teamsAdapter.submitList(data)
-                }
-                is ResultWrapper.Error -> {
-                }
-            }
-        })
+    override fun onSupportNavigateUp(): Boolean {
+        return navController.navigateUp() || super.onSupportNavigateUp()
     }
 
-
-    private fun setupRecyclerView() {
-        teamsAdapter = TeamsAdapter()
-        mainBinding.recyclerViewTeams.run {
-            adapter = teamsAdapter
-            layoutManager =
-                GridLayoutManager(this@MainActivity, 3, LinearLayoutManager.VERTICAL, false)
-        }
+    override fun onDestroy() {
+        super.onDestroy()
+        mainBinding = null
     }
-
 
 }

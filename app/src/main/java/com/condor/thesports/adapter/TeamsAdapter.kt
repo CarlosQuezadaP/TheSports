@@ -7,8 +7,10 @@ import androidx.recyclerview.widget.ListAdapter
 import com.condor.domain.models.TeamDomain
 import com.condor.thesports.R
 import com.condor.thesports.databinding.ItemLayoutTeamsBinding
+import com.condor.thesports.handlers.OnTeamClick
 
-class TeamsAdapter : ListAdapter<TeamDomain, TeamViewHolder>(TeamItemDiffCallback()) {
+class TeamsAdapter(private val onTeamClick: OnTeamClick) :
+    ListAdapter<TeamDomain, TeamViewHolder>(TeamItemDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TeamViewHolder {
         val layout = DataBindingUtil.inflate(
@@ -19,12 +21,13 @@ class TeamsAdapter : ListAdapter<TeamDomain, TeamViewHolder>(TeamItemDiffCallbac
         ) as ItemLayoutTeamsBinding
 
 
-        return TeamViewHolder(layout)
+        return TeamViewHolder(layout, onTeamClick)
 
     }
 
     override fun onBindViewHolder(holder: TeamViewHolder, position: Int) {
         holder.binto(getItem(position))
+
     }
 
 }

@@ -10,6 +10,7 @@ import appdependencies.Versions
 plugins {
     id(appdependencies.Plugins.id_android_app)
     id(appdependencies.Plugins.id_kotlin_android)
+    id(appdependencies.Plugins.id_navigation_safeargs)
     kotlin(appdependencies.Plugins.kotlin_android)
     kotlin(appdependencies.Plugins.kotlin_android_extensions)
     kotlin(appdependencies.Plugins.kotlin_kapt)
@@ -53,6 +54,8 @@ android {
 }
 
 dependencies {
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:${rootProject.extra["kotlin_version"]}")
+    implementation("androidx.legacy:legacy-support-v4:1.0.0")
 
     //modules
     api(project(appdependencies.Modules.core))
@@ -64,6 +67,7 @@ dependencies {
     implementation(Libs.Glide.glide)
     implementation(Libs.Koin.koin)
     implementation(Libs.Koin.koinViewModel)
+    implementation(Libs.Koin.koinFragment)
     implementation(Libs.kotlin_coroutines)
     implementation(Libs.kotlin_coroutines_android)
     implementation(Libs.Lifecycle.viewmodelKtx)
@@ -71,8 +75,9 @@ dependencies {
     implementation(Libs.androidx_core)
     implementation(Libs.material)
     implementation(Libs.appcompat)
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:${rootProject.extra["kotlin_version"]}")
-    implementation("androidx.legacy:legacy-support-v4:1.0.0")
+    implementation(Libs.Core.navigationFragmentKtx)
+    implementation(Libs.Core.navigationUiKtx)
+    implementation(Libs.circleImage)
 
     kapt(Libs.Glide.glide_compiler)
 
