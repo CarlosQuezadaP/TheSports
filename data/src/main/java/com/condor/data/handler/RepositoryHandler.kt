@@ -11,35 +11,35 @@ abstract class RepositoryHandler<T>(
     val remoteRepository: RemoteRepository<T>
 ) {
 
-    private fun toFlowRetrieveAll(leagueParameter: String): Flow<List<T>> {
+    private fun getAllToFlow(leagueParameter: String): Flow<List<T>> {
         return flow {
-            val response: List<T> = remoteRepository.retrieveAll(leagueParameter)
+            val response: List<T> = remoteRepository.getAll(leagueParameter)
             localSave(response)
             emit(response)
         }
     }
 
-    private fun toFlowRetrieveById(id: String): Flow<List<T>> {
+    private fun getByIdToFlow(id: String): Flow<List<T>> {
         return flow {
-            val response: List<T> = remoteRepository.retrieveById(id)
+            val response: List<T> = remoteRepository.getById(id)
 
             emit(response)
         }
     }
 
-    fun retrieveAll(leagueParameter: String): Flow<ResultWrapper<List<T>>> {
-        return toFlowRetrieveAll(leagueParameter).map {
+    fun getAll(leagueParameter: String): Flow<ResultWrapper<List<T>>> {
+        return getAllToFlow(leagueParameter).map {
             val response: ResultWrapper<List<T>> = ResultWrapper.Success(it)
             response
         }
     }
 
-    fun retrieveById(id: String): Flow<ResultWrapper<List<T>>> {
+    fun getById(id: String): Flow<ResultWrapper<List<T>>> {
         return localRepository.getById(id).flatMapConcat { localData: List<T> ->
             if (localData.isNotEmpty())
                 flowOf(localData)
             else {
-                toFlowRetrieveById(id)
+                getByIdToFlow(id)
             }
         }.map {
             var response: ResultWrapper<List<T>> = ResultWrapper.Success(it)

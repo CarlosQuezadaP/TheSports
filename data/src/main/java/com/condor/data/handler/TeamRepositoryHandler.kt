@@ -4,7 +4,7 @@ import com.condor.data.repository.LocalRepository
 import com.condor.data.repository.RemoteRepository
 import com.condor.domain.models.TeamDomain
 
-class TeamRepositoryHandler (
+class TeamRepositoryHandler(
     localRepository: LocalRepository<TeamDomain>,
     remoteRepository: RemoteRepository<TeamDomain>
 ) : RepositoryHandler<TeamDomain>(localRepository, remoteRepository) {

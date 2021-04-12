@@ -1,7 +1,6 @@
 package com.condor.data.handler
 
 import com.condor.core.ResultWrapper
-import com.condor.data.dto.LeagueDto
 import com.condor.data.repository.LeagueRemoteRepository
 import com.condor.data.repository.LocalLeagueRepository
 import com.condor.domain.models.LeagueDomain

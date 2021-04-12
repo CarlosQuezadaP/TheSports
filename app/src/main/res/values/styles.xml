@@ -11,4 +11,23 @@
         <item name="android:textSize">@dimen/multiplier_5sp</item>
     </style>
 
+    <style name="smallText" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">@dimen/multiplier_6sp</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="normalText" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">@dimen/multiplier_13sp</item>
+    </style>
+
+    <style name="contentText" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">@dimen/multiplier_10sp</item>
+    </style>
+
+    <style name="TextAppearance.Sports.Title.Expanded" parent="android:TextAppearance">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:maxLines">2</item>
+    </style>
+
 </resources>

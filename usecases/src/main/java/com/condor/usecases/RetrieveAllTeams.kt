@@ -7,8 +7,9 @@ import kotlinx.coroutines.flow.Flow
 
 class RetrieveAllTeams(private val teamRepositoryHandler: TeamRepositoryHandler) :
     IRetrieveAllTeams {
-    override fun retrieveTeams(leagueParameter: String): Flow<ResultWrapper<List<TeamDomain>>> {
-        return teamRepositoryHandler.retrieveAll(leagueParameter)
+
+    override fun invoke(leagueParameter: String): Flow<ResultWrapper<List<TeamDomain>>> {
+        return teamRepositoryHandler.getAll(leagueParameter)
     }
 
 }

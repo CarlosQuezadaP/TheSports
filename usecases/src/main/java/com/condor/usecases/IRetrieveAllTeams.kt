@@ -5,5 +5,5 @@ import com.condor.domain.models.TeamDomain
 import kotlinx.coroutines.flow.Flow
 
 interface IRetrieveAllTeams {
-    fun retrieveTeams(leagueParameter: String): Flow<ResultWrapper<List<TeamDomain>>>
+    fun invoke(leagueParameter: String): Flow<ResultWrapper<List<TeamDomain>>>
 }
