@@ -5,11 +5,11 @@ import com.condor.data.handler.EventRepositoryHandler
 import com.condor.domain.models.EventDomain
 import kotlinx.coroutines.flow.Flow
 
-class GetAllEventsUseCase(private val eventRepositoryRepositoryHandler: EventRepositoryHandler) :
+class GetAllEventsUseCase(private val eventRepositoryHandler: EventRepositoryHandler) :
     IGetAllEventsUseCase {
 
     override fun invoke(id: String) =
-        eventRepositoryRepositoryHandler.getById(id)
+        eventRepositoryHandler.getById(id)
 
 }
 

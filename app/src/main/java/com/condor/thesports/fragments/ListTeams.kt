@@ -102,7 +102,7 @@ class ListTeams : Fragment(), OnTeamClick {
     }
 
     override fun onClick(team: TeamDomain) {
-        val action = ListTeamsDirections.actionListTeamsToDetailTeamFragment(team.idTeam)
+        val action = ListTeamsDirections.actionListTeamsToDetailTeamFragment(team.idTeam, team.strTeam)
         findNavController().navigate(action)
     }
 

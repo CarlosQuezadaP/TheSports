@@ -32,6 +32,10 @@
             android:name="teamId"
             app:argType="string" />
 
+        <argument
+            android:name="nameTeam"
+            app:argType="string" />
+
     </fragment>
 
 
