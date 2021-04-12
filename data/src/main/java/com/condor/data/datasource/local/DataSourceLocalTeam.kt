@@ -3,14 +3,14 @@ package com.condor.data.datasource.local
 import com.condor.data.converters.IConverter
 import com.condor.data.db.dao.TeamDao
 import com.condor.data.db.entity.TeamEntity
-import com.condor.data.repository.LocalRepository
+import com.condor.data.repository.ILocalRepository
 import com.condor.domain.models.TeamDomain
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 
-class LocalDataSourceTeam(private val teamDao: TeamDao, private val iConverter: IConverter) :
-    LocalRepository<TeamDomain> {
+class DataSourceLocalTeam(private val teamDao: TeamDao, private val iConverter: IConverter) :
+    ILocalRepository<TeamDomain> {
     override suspend fun save(data: TeamDomain) {
         val teamEntity: TeamEntity = iConverter.convertTeamDomainToEntity(data)
         teamDao.save(teamEntity)

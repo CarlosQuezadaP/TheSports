@@ -2,7 +2,7 @@ package com.condor.data.repository
 
 import kotlinx.coroutines.flow.Flow
 
-interface LocalRepository<T> {
+interface ILocalRepository<T> {
 
     suspend fun save(data: T)
 
