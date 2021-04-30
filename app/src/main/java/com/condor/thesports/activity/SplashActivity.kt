@@ -1,8 +1,8 @@
 package com.condor.thesports.activity
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.condor.thesports.R
 import kotlinx.coroutines.*
 
@@ -18,6 +18,5 @@ class SplashActivity : AppCompatActivity() {
                 finish()
             }
         }
-
     }
 }

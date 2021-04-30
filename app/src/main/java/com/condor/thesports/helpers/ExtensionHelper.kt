@@ -10,7 +10,6 @@ fun Fragment.setExitToFullScreenTransition() {
             .inflateTransition(R.transition.list_exit_transition)
 }
 
-
 fun Fragment.setReturnFromFullScreenTransition() {
     reenterTransition =
         TransitionInflater.from(context)

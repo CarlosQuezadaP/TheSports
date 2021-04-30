@@ -20,7 +20,7 @@ android {
         targetSdkVersion(TARGET_VERSION)
         versionCode = Builds.App.VERSION_CODE
         versionName = Builds.App.VERSION_NAME
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = appdependencies.Libs.test_runner
     }
 
     compileOptions {
@@ -49,6 +49,4 @@ dependencies {
     testImplementation(appdependencies.Libs.Testing.core_testing)
     testImplementation(appdependencies.Libs.Testing.mock_io)
     androidTestImplementation(appdependencies.Libs.Testing.mock_io_android)
-
-
 }

@@ -43,7 +43,7 @@ class SportsApp : Application() {
                     usecaseGetAllEvent,
                     usecaseGetAllLeagues,
                     usecaseGetTeam,
-                    )
+                )
             )
         }
     }

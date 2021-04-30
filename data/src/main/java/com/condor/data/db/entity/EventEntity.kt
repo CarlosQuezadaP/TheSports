@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "event")
 data class EventEntity(
     @PrimaryKey
-    var id: String,
-    val id_team: String = "",
-    val str_event: String = ""
+    val id: String,
+    var id_team: String,
+    var str_event: String
 )

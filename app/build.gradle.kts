@@ -12,7 +12,6 @@ plugins {
     id(appdependencies.Plugins.id_kotlin_android)
     id(appdependencies.Plugins.id_navigation_safeargs)
     kotlin(appdependencies.Plugins.kotlin_android)
-    kotlin(appdependencies.Plugins.kotlin_android_extensions)
     kotlin(appdependencies.Plugins.kotlin_kapt)
 }
 
@@ -25,7 +24,7 @@ android {
         targetSdkVersion(TARGET_VERSION)
         versionCode = Builds.App.VERSION_CODE
         versionName = Builds.App.VERSION_NAME
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = Libs.test_runner
     }
     buildTypes {
         getByName("debug") {
@@ -79,7 +78,6 @@ dependencies {
     implementation(Libs.material)
     implementation(Libs.circleImage)
     implementation(Libs.kotlin_reflect)
-
     kapt(Libs.Glide.glide_compiler)
 
     //Test

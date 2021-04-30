@@ -34,6 +34,7 @@ abstract class RepositoryHandler<T>(
         }
     }
 
+    //Todo poner flujo de aplicacion en el main
     fun getById(id: String): Flow<ResultWrapper<List<T>>> {
         return iLocalRepository.getById(id).flatMapConcat { localData: List<T> ->
             if (localData.isNotEmpty())
@@ -42,7 +43,7 @@ abstract class RepositoryHandler<T>(
                 getByIdToFlow(id)
             }
         }.map {
-            var response: ResultWrapper<List<T>> = ResultWrapper.Success(it)
+            val response: ResultWrapper<List<T>> = ResultWrapper.Success(it)
             response
         }.onStart {
             emit(ResultWrapper.Loading)

@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.condor.core.ResultWrapper
@@ -15,14 +14,14 @@ import com.condor.domain.models.EventDomain
 import com.condor.domain.models.TeamDomain
 import com.condor.thesports.R
 import com.condor.thesports.adapter.EventListAdapter
+import com.condor.thesports.base.BaseFragment
 import com.condor.thesports.databinding.FragmentDetailTeamBinding
 import com.condor.thesports.viewmodels.TeamDetailViewModel
 import org.koin.android.ext.android.inject
 
+class DetailTeamFragment : BaseFragment() {
 
-class DetailTeamFragment : Fragment() {
-
-    val args: DetailTeamFragmentArgs by navArgs()
+    private val args: DetailTeamFragmentArgs by navArgs()
 
     private lateinit var fragmentDetailBinding: FragmentDetailTeamBinding
 
@@ -41,12 +40,16 @@ class DetailTeamFragment : Fragment() {
             inflater,
             R.layout.fragment_detail_team, container, false
         )
+
         val id = args.teamId
         val name = args.nameTeam
 
         fragmentDetailBinding.toolbar.title = name
-        teamDetailViewModel.getTeam(id)
-        teamDetailViewModel.getEventsByTeamId(id)
+
+        teamDetailViewModel.apply {
+            getTeam(id)
+            getEventsByTeamId(id)
+        }
 
 
         setupEventRecyclerView()
@@ -127,6 +130,11 @@ class DetailTeamFragment : Fragment() {
     private fun loadImage(strUrlImage: String, imageView: ImageView) {
         Glide.with(this).load(strUrlImage)
             .placeholder(R.drawable.ic_cloud_off_black_24dp).into(imageView)
+    }
+
+    override fun onDetach() {
+        teamDetailViewModel.clearViewModel()
+        super.onDetach()
     }
 
 

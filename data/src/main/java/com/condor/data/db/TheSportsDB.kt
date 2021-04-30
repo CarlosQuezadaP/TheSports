@@ -11,7 +11,7 @@ import com.condor.data.db.entity.TeamEntity
 
 @Database(
     entities = [TeamEntity::class, EventEntity::class, LeagueEntity::class],
-    version = 1,
+    version = 2,
     exportSchema = false
 )
 abstract class TheSportsDB : RoomDatabase() {

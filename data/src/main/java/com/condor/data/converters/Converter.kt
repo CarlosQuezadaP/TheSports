@@ -11,6 +11,7 @@ import com.condor.domain.models.LeagueDomain
 import com.condor.domain.models.TeamDomain
 
 class Converter : IConverter {
+
     override fun convertEventDtoToDomain(eventDto: EventDto): EventDomain {
         return EventDomain(eventDto.idEvent, eventDto.idHomeTeam, eventDto.strEvent)
     }
@@ -44,18 +45,19 @@ class Converter : IConverter {
     override fun convertTeamDtoToDomain(teamDto: TeamDto): TeamDomain {
         return TeamDomain(
             teamDto.idTeam,
-            teamDto.strTeam,
-            teamDto.intFormedYear,
-            teamDto.strStadium,
-            teamDto.strWebsite,
-            teamDto.strFacebook,
-            teamDto.strTwitter,
-            teamDto.strInstagram ?: "",
-            teamDto.strDescriptionEN ?: "",
-            teamDto.strTeamBadge  ?: "",
-            teamDto.strTeamJersey ?: "",
-            teamDto.strYoutube
-        )
+            teamDto.strTeam
+        ).apply {
+            intFormedYear = teamDto.intFormedYear
+            strStadium = teamDto.strStadium
+            strWebsite = teamDto.strWebsite
+            strFacebook = teamDto.strFacebook
+            strTwitter = teamDto.strTwitter
+            strInstagram = teamDto.strInstagram
+            strDescriptionEN = teamDto.strDescriptionEN
+            strTeamBadge = teamDto.strTeamBadge
+            strTeamJersey = teamDto.strTeamJersey
+            strYoutube = teamDto.strYoutube
+        }
     }
 
     override fun convertTeamDomainToEntity(teamDomain: TeamDomain): TeamEntity {
@@ -78,19 +80,19 @@ class Converter : IConverter {
     override fun convertTeamEntityToDomain(teamEntity: TeamEntity): TeamDomain {
         return TeamDomain(
             teamEntity.id_team,
-            teamEntity.str_team,
-            teamEntity.int_formedYear,
-            teamEntity.strS_stadium,
-            teamEntity.str_website,
-            teamEntity.str_facebook,
-            teamEntity.str_twitter,
-            teamEntity.str_instagram,
-            teamEntity.str_descriptionEN,
-            teamEntity.str_teamBadge,
-            teamEntity.st_teamJersey,
-            teamEntity.str_youtube
-        )
+            teamEntity.str_team
+        ).apply {
+            intFormedYear = teamEntity.int_formedYear
+            strStadium = teamEntity.strS_stadium
+            strWebsite = teamEntity.str_website
+            strFacebook = teamEntity.str_facebook
+            strTwitter = teamEntity.str_twitter
+            strInstagram = teamEntity.str_instagram
+            strDescriptionEN = teamEntity.str_descriptionEN
+            strTeamBadge = teamEntity.str_teamBadge
+            strTeamJersey = teamEntity.st_teamJersey
+            strYoutube = teamEntity.str_youtube
+        }
     }
-
 
 }

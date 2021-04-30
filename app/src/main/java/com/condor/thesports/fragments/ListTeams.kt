@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,19 +16,19 @@ import com.condor.domain.models.TeamDomain
 import com.condor.thesports.R
 import com.condor.thesports.activity.LeaguesActivity
 import com.condor.thesports.adapter.TeamsAdapter
+import com.condor.thesports.base.BaseFragment
 import com.condor.thesports.databinding.FragmentListTeamsBinding
 import com.condor.thesports.handlers.OnTeamClick
 import com.condor.thesports.helpers.setExitToFullScreenTransition
 import com.condor.thesports.helpers.setReturnFromFullScreenTransition
 import com.condor.thesports.viewmodels.TeamsListViewModel
-import kotlinx.android.synthetic.main.fragment_list_teams.view.*
 import org.koin.android.ext.android.inject
 
-
 private const val REQUEST_CODE = 222
+
 private const val DATA_NAME = "LEAGUE_NAME"
 
-class ListTeams : Fragment(), OnTeamClick {
+class ListTeams : BaseFragment(), OnTeamClick {
 
     private lateinit var listTeamBinding: FragmentListTeamsBinding
 
@@ -37,7 +36,7 @@ class ListTeams : Fragment(), OnTeamClick {
 
     private lateinit var teamsAdapter: TeamsAdapter
 
-    private var leagueName: String = "Spanish La Liga"
+    private lateinit var leagueName: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,11 +47,11 @@ class ListTeams : Fragment(), OnTeamClick {
             inflater,
             R.layout.fragment_list_teams, container, false
         )
+        leagueName = getString(R.string.league_default)
 
         setupRecyclerView()
 
-        listTeamBinding.root.textView_leagueTitle.text = leagueName
-        teamsListViewModel.getTeams(leagueName)
+        getTeamsLeague(leagueName)
 
         observeTeams()
 
@@ -80,6 +79,7 @@ class ListTeams : Fragment(), OnTeamClick {
             { resultWrapper: ResultWrapper<List<TeamDomain>> ->
                 when (resultWrapper) {
                     is ResultWrapper.Loading -> {
+                        //Todo mostrar loading
 
                     }
                     is ResultWrapper.Success -> {
@@ -87,6 +87,7 @@ class ListTeams : Fragment(), OnTeamClick {
                         teamsAdapter.submitList(data)
                     }
                     is ResultWrapper.Error -> {
+                        //Todo mostrar error
                     }
                 }
             })
@@ -102,7 +103,8 @@ class ListTeams : Fragment(), OnTeamClick {
     }
 
     override fun onClick(team: TeamDomain) {
-        val action = ListTeamsDirections.actionListTeamsToDetailTeamFragment(team.idTeam, team.strTeam)
+        val action =
+            ListTeamsDirections.actionListTeamsToDetailTeamFragment(team.idTeam, team.strTeam)
         findNavController().navigate(action)
     }
 
@@ -111,13 +113,33 @@ class ListTeams : Fragment(), OnTeamClick {
         if (requestCode == REQUEST_CODE) {
             if (resultCode == Activity.RESULT_OK) {
                 leagueName = data?.getStringExtra(DATA_NAME) ?: ""
-                teamsListViewModel.getTeams(leagueName)
-                listTeamBinding.root.textView_leagueTitle.text = leagueName
+                getTeamsLeague(leagueName)
             } else if (resultCode == Activity.RESULT_CANCELED) {
-                Toast.makeText(requireContext(), "Acción cancelada!", Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    requireContext(),
+                    getString(R.string.canceled_action),
+                    Toast.LENGTH_LONG
+                ).show()
             }
         }
     }
 
+    private fun getTeamsLeague(leagueName: String) {
+        if (leagueName.isEmpty()) {
+            Toast.makeText(
+                requireContext(),
+                getString(R.string.no_league_selected),
+                Toast.LENGTH_LONG
+            ).show()
+        } else {
+            teamsListViewModel.getTeams(leagueName)
+            listTeamBinding.textViewLeagueTitle.text = leagueName
+        }
+    }
+
+    override fun onDetach() {
+        teamsListViewModel.clearViewModel()
+        super.onDetach()
+    }
 
 }

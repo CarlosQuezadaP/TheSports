@@ -5,7 +5,6 @@ import appdependencies.Builds.MIN_VERSION
 import appdependencies.Builds.TARGET_VERSION
 import appdependencies.Versions
 
-
 plugins {
     id(appdependencies.Plugins.id_android_library)
     id(appdependencies.Plugins.id_kotlin_android)
@@ -19,18 +18,15 @@ android {
         targetSdkVersion(TARGET_VERSION)
         versionCode = Builds.App.VERSION_CODE
         versionName = Builds.App.VERSION_NAME
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = appdependencies.Libs.test_runner
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
-
     kotlinOptions {
         jvmTarget = Versions.jvmTarget
     }
-
-
 }
 
 dependencies {

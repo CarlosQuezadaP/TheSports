@@ -6,12 +6,10 @@ import appdependencies.Builds.TARGET_VERSION
 import appdependencies.Libs
 import appdependencies.Versions
 
-
 plugins {
     id(appdependencies.Plugins.id_android_library)
     id(appdependencies.Plugins.id_kotlin_android)
     kotlin(appdependencies.Plugins.kotlin_android)
-    kotlin(appdependencies.Plugins.kotlin_android_extensions)
     kotlin(appdependencies.Plugins.kotlin_kapt)
 }
 
@@ -23,7 +21,7 @@ android {
         targetSdkVersion(TARGET_VERSION)
         versionCode = Builds.App.VERSION_CODE
         versionName = Builds.App.VERSION_NAME
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = Libs.test_runner
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -33,25 +31,20 @@ android {
     kotlinOptions {
         jvmTarget = Versions.jvmTarget
     }
-
-
 }
 
 dependencies {
     implementation(project(appdependencies.Modules.core))
     implementation(project(appdependencies.Modules.domain))
 
+    //Libraries
     implementation(Libs.Koin.koin)
-
     implementation(Libs.Retrofit.core)
     implementation(Libs.Retrofit.adapter)
     implementation(Libs.Retrofit.gson)
-
     implementation(Libs.Okhttp.okhttp)
     implementation(Libs.Okhttp.logging)
-
     implementation(Libs.Room.runtime)
     implementation(Libs.Room.ktx)
     kapt(Libs.Room.kaptcompiler)
-
 }

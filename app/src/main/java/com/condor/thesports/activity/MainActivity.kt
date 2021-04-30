@@ -8,13 +8,11 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.condor.thesports.R
 import com.condor.thesports.databinding.ActivityMainBinding
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import org.koin.androidx.fragment.android.setupKoinFragmentFactory
 
 class MainActivity : AppCompatActivity() {
 
     var mainBinding: ActivityMainBinding? = null
-
 
     private val navController: NavController by lazy { findNavController(R.id.fragment_nav_host) }
 
@@ -25,15 +23,14 @@ class MainActivity : AppCompatActivity() {
         mainBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mainBinding!!.root)
 
-
-        val btmNavMain = findViewById<BottomNavigationView>(R.id.bottom_navigation)
-
-        btmNavMain.setupWithNavController(navController)
+        val btmNavMain = mainBinding?.bottomNavigation?.apply {
+            setupWithNavController(navController)
+        }
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.listTeams -> btmNavMain.visibility = View.VISIBLE
-                else -> btmNavMain.visibility = View.GONE
+                R.id.listTeams -> btmNavMain?.visibility = View.VISIBLE
+                else -> btmNavMain?.visibility = View.GONE
             }
         }
     }

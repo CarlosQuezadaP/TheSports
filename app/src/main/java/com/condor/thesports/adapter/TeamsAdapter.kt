@@ -20,14 +20,11 @@ class TeamsAdapter(private val onTeamClick: OnTeamClick) :
             false
         ) as ItemLayoutTeamsBinding
 
-
         return TeamViewHolder(layout, onTeamClick)
-
     }
 
     override fun onBindViewHolder(holder: TeamViewHolder, position: Int) {
         holder.binto(getItem(position))
-
     }
 
 }

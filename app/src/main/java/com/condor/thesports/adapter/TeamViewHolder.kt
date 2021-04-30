@@ -14,7 +14,6 @@ class TeamViewHolder(
     fun binto(teamitemDomain: TeamDomain) {
         itemViewBinding.team = teamitemDomain
         itemViewBinding.clickTeam = onTeamClick
-
     }
 
 }

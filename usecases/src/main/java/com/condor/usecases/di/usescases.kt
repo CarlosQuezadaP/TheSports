@@ -15,7 +15,6 @@ val usecaseGetAllEvent = module {
     }
 }
 
-
 val usecaseGetAllLeagues = module {
     single<IGetAllLeaguesUseCase> {
         GetAllLeaguesUseCase(get())

@@ -14,7 +14,7 @@ val detailModule = module {
 }
 
 val leagueModule = module {
-    single { LeagueViewModel(get())}
+    single { LeagueViewModel(get()) }
 }
 
 

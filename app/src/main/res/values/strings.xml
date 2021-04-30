@@ -8,4 +8,9 @@
     <string name="description">description</string>
     <string name="jersey">Jersey</string>
     <string name="social_media">Social Media</string>
+    <string name="all_genders">Todos los generos</string>
+    <string name="todo">none</string>
+    <string name="canceled_action">Acción cancelada!</string>
+    <string name="no_league_selected">Error, liga no seleccionada</string>
+    <string name="league_default">Spanish La Liga</string>
 </resources>

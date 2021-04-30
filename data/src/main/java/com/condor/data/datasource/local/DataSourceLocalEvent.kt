@@ -16,7 +16,6 @@ class DataSourceLocalEvent(private val eventDao: EventDao, private val iConverte
         eventDao.save(eventEntity)
     }
 
-
     override fun getAll(leagueParameter: String): Flow<List<EventDomain>> {
         return eventDao.getAll().map {
             it.map {

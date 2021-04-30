@@ -14,11 +14,9 @@ interface IConverter {
     fun convertEventDtoToDomain(eventDto: EventDto): EventDomain
     fun convertEventDomainToEntity(eventDomain: EventDomain): EventEntity
     fun convertEventEntityToDomain(eventEntity: EventEntity): EventDomain
-
     fun convertLeagueDtoToDomain(leagueDto: LeagueDto): LeagueDomain
     fun convertLeagueDomainToEntity(leagueDomain: LeagueDomain): LeagueEntity
     fun convertLeagueEntityToDomain(leagueEntity: LeagueEntity): LeagueDomain
-
     fun convertTeamDtoToDomain(teamDto: TeamDto): TeamDomain
     fun convertTeamDomainToEntity(teamDomain: TeamDomain): TeamEntity
     fun convertTeamEntityToDomain(teamEntity: TeamEntity): TeamDomain

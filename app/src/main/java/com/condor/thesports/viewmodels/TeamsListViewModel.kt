@@ -2,15 +2,15 @@ package com.condor.thesports.viewmodels
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.condor.core.ResultWrapper
 import com.condor.domain.models.TeamDomain
+import com.condor.thesports.base.BaseViewModel
 import com.condor.usecases.IGetAllTeamsUseCase
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
-class TeamsListViewModel(private val getAllTeamsUseCase: IGetAllTeamsUseCase) : ViewModel() {
+class TeamsListViewModel(private val getAllTeamsUseCase: IGetAllTeamsUseCase) : BaseViewModel() {
 
     private var _lvTeams: MutableLiveData<ResultWrapper<List<TeamDomain>>> = MutableLiveData()
     var lvTeams: LiveData<ResultWrapper<List<TeamDomain>>> = _lvTeams

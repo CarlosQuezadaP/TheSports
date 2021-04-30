@@ -1,7 +1,7 @@
 package appdependencies
 
-
 object Libs {
+    const val test_runner = "androidx.test.runner.AndroidJUnitRunner"
     const val stdlib = "org.jetbrains.kotlin:kotlin-stdlib:${Versions.kotlin}"
     const val kotlin_reflect = "org.jetbrains.kotlin:kotlin-reflect:${Versions.kotlin}"
     const val circleImage = "de.hdodenhof:circleimageview:${Versions.circleImage}"
@@ -11,17 +11,14 @@ object Libs {
     const val material = "com.google.android.material:material:${Versions.material}"
     const val constraintlayout =
         "androidx.constraintlayout:constraintlayout:${Versions.constraintLayout}"
-
     const val kotlin_coroutines =
         "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}"
     const val kotlin_coroutines_android =
         "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines}"
 
-
     object Glide {
         const val glide = "com.github.bumptech.glide:glide:${Versions.glide}"
         const val glide_compiler = "com.github.bumptech.glide:compiler:${Versions.glide}"
-
     }
 
     object Room {
@@ -47,11 +44,9 @@ object Libs {
         const val logging = "com.squareup.okhttp3:logging-interceptor:${Versions.okhttp3}"
     }
 
-
     object Lifecycle {
         const val viewmodelKtx = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycle}"
     }
-
 
     object Core {
         const val navigationFragmentKtx =
@@ -59,8 +54,6 @@ object Libs {
         const val navigationUiKtx =
             "androidx.navigation:navigation-ui-ktx:${Versions.Navigation.ui}"
     }
-
-
 
     object Testing {
         const val junit = "junit:junit:${Versions.Test.junit}"
