@@ -1,27 +1,28 @@
 package com.condor.data.handler
 
 import com.condor.core.ResultWrapper
-import com.condor.data.repository.ILeagueLocalRepository
-import com.condor.data.repository.ILeagueRemoteRepository
+import com.condor.data.base.BaseRepositoryHandler
+import com.condor.data.datasource.remote.IDataSourceRemoteLeague
+import com.condor.usecases.repository.ILeagueRepositoryHandler
+import com.condor.data.datasource.local.ILocalRepository
 import com.condor.domain.models.LeagueDomain
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 
 class LeagueRepositoryHandler constructor(
-    val iLeagueLocalRepository: ILeagueLocalRepository,
-    val iLeagueRemoteRepository: ILeagueRemoteRepository
-) {
+    val iLeagueLocalRepository: ILocalRepository<LeagueDomain>,
+    val iDataSourceRemoteLeague: IDataSourceRemoteLeague
+) : BaseRepositoryHandler<LeagueDomain>(iLeagueLocalRepository), ILeagueRepositoryHandler {
 
     private fun getAllLeaguesToFlow(): Flow<List<LeagueDomain>> {
         return flow {
-            val response: List<LeagueDomain> = iLeagueRemoteRepository.getAllLeagues()
-            iLeagueLocalRepository.saveLeagues(response)
+            val response: List<LeagueDomain> = iDataSourceRemoteLeague.getAllLeagues()
+            iLeagueLocalRepository.saveAll(response)
             emit(response)
         }
     }
 
-    fun getAllLeagues(): Flow<ResultWrapper<List<LeagueDomain>>> {
-        return iLeagueLocalRepository.getLeagues().flatMapLatest { leagues: List<LeagueDomain> ->
+    override fun getAllLeagues(): Flow<ResultWrapper<List<LeagueDomain>>> {
+        return iLeagueLocalRepository.getAll("").flatMapLatest { leagues: List<LeagueDomain> ->
             if (leagues.isNotEmpty()) {
                 flowOf(leagues)
             } else {
@@ -30,11 +31,13 @@ class LeagueRepositoryHandler constructor(
         }.map { leagues: List<LeagueDomain> ->
             val result: ResultWrapper<List<LeagueDomain>> = ResultWrapper.Success(leagues)
             result
-        }.onStart {
-            emit(ResultWrapper.Loading)
-        }.catch {
-            emit(ResultWrapper.Error("League error"))
-        }.flowOn(Dispatchers.IO)
+        }
 
     }
+
+    override suspend fun localSave(dataList: List<LeagueDomain>) {
+        iLeagueLocalRepository.saveAll(dataList)
+    }
+
+
 }

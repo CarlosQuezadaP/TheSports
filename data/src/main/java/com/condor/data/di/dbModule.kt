@@ -8,7 +8,6 @@ import org.koin.dsl.module
 val databaseModule = module {
     single {
         Room.databaseBuilder(androidApplication(), TheSportsDB::class.java, "db")
-            .allowMainThreadQueries()
             .build()
     }
 

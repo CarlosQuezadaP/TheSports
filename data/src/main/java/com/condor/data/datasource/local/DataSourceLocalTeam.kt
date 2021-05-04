@@ -3,11 +3,9 @@ package com.condor.data.datasource.local
 import com.condor.data.converters.IConverter
 import com.condor.data.db.dao.TeamDao
 import com.condor.data.db.entity.TeamEntity
-import com.condor.data.repository.ILocalRepository
 import com.condor.domain.models.TeamDomain
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-
 
 class DataSourceLocalTeam(private val teamDao: TeamDao, private val iConverter: IConverter) :
     ILocalRepository<TeamDomain> {
@@ -22,7 +20,6 @@ class DataSourceLocalTeam(private val teamDao: TeamDao, private val iConverter: 
         }
         teamDao.saveAll(teamsEntity)
     }
-
 
     override fun getAll(leagueParameter: String): Flow<List<TeamDomain>> {
         return teamDao.getAll().map {
@@ -41,6 +38,6 @@ class DataSourceLocalTeam(private val teamDao: TeamDao, private val iConverter: 
     }
 
     override suspend fun delete(data: TeamDomain) {
+        iConverter.convertTeamDomainToEntity(data)
     }
-
 }

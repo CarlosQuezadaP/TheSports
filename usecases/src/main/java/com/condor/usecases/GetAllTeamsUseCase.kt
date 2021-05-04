@@ -1,13 +1,13 @@
 package com.condor.usecases
 
 import com.condor.core.ResultWrapper
-import com.condor.data.handler.TeamRepositoryHandler
 import com.condor.domain.models.TeamDomain
+import com.condor.usecases.repository.ITeamRepositoryHandler
 import kotlinx.coroutines.flow.Flow
 
-class GetAllTeamsUseCase(private val teamRepositoryHandler: TeamRepositoryHandler) :
+class GetAllTeamsUseCase(private val iTeamRepositoryHandler: ITeamRepositoryHandler) :
     IGetAllTeamsUseCase {
-    override fun invoke(leagueParameter: String) = teamRepositoryHandler.getAll(leagueParameter)
+    override fun invoke(leagueParameter: String) = iTeamRepositoryHandler.getAll(leagueParameter)
 }
 
 interface IGetAllTeamsUseCase {

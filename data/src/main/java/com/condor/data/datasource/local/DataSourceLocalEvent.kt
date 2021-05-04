@@ -4,7 +4,6 @@ package com.condor.data.datasource.local
 import com.condor.data.converters.IConverter
 import com.condor.data.db.dao.EventDao
 import com.condor.data.db.entity.EventEntity
-import com.condor.data.repository.ILocalRepository
 import com.condor.domain.models.EventDomain
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -38,6 +37,9 @@ class DataSourceLocalEvent(private val eventDao: EventDao, private val iConverte
     }
 
     override suspend fun saveAll(data: List<EventDomain>) {
+        eventDao.saveAll(data.map {
+            iConverter.convertEventDomainToEntity(it)
+        })
     }
 
 }

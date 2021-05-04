@@ -35,6 +35,7 @@ android {
 
 dependencies {
     implementation(project(appdependencies.Modules.core))
+    implementation(project(appdependencies.Modules.usecases))
     implementation(project(appdependencies.Modules.domain))
 
     //Libraries

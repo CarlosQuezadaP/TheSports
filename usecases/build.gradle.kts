@@ -1,5 +1,4 @@
 import appdependencies.Builds
-import appdependencies.Builds.APP_ID
 import appdependencies.Builds.BUILD_TOOLS
 import appdependencies.Builds.COMPILE_VERSION
 import appdependencies.Builds.MIN_VERSION
@@ -35,7 +34,6 @@ android {
 
 dependencies {
     //Modules
-    implementation(project(appdependencies.Modules.data))
     implementation(project(appdependencies.Modules.core))
     implementation(project(appdependencies.Modules.domain))
 
