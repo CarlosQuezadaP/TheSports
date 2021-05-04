@@ -9,7 +9,11 @@ import com.condor.domain.models.TeamDomain
 import com.condor.thesports.base.BaseViewModel
 import com.condor.usecases.IGetAllEventsUseCase
 import com.condor.usecases.IGetTeamUseCase
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 
 class TeamDetailViewModel(
@@ -29,17 +33,29 @@ class TeamDetailViewModel(
 
     fun getTeam(idTeam: String) {
         viewModelScope.launch {
-            iGetTeamUseCase.invoke(idTeam).collect {
-                _teamLiveData.value = it
-            }
+            iGetTeamUseCase.invoke(idTeam)
+                .onStart {
+                    emit(ResultWrapper.Loading)
+                }.catch {
+                    emit(ResultWrapper.Error("Network error"))
+                }.flowOn(Dispatchers.IO)
+                .collect {
+                    _teamLiveData.value = it
+                }
         }
     }
 
     fun getEventsByTeamId(teamId: String) {
         viewModelScope.launch {
-            iGetAllEventsUseCase.invoke(teamId).collect {
-                _eventsLiveData.value = it
-            }
+            iGetAllEventsUseCase.invoke(teamId)
+                .onStart {
+                    emit(ResultWrapper.Loading)
+                }.catch {
+                    emit(ResultWrapper.Error("Network error"))
+                }.flowOn(Dispatchers.IO)
+                .collect {
+                    _eventsLiveData.value = it
+                }
         }
     }
 

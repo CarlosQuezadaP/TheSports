@@ -7,7 +7,11 @@ import com.condor.core.ResultWrapper
 import com.condor.domain.models.TeamDomain
 import com.condor.thesports.base.BaseViewModel
 import com.condor.usecases.IGetAllTeamsUseCase
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 
 class TeamsListViewModel(private val getAllTeamsUseCase: IGetAllTeamsUseCase) : BaseViewModel() {
@@ -21,11 +25,17 @@ class TeamsListViewModel(private val getAllTeamsUseCase: IGetAllTeamsUseCase) : 
     fun getTeams(leagueParameter: String) {
         _loading.value = true
         viewModelScope.launch {
-            getAllTeamsUseCase.invoke(leagueParameter).collect {
-                _lvTeams.value = it
-                _loading.value = false
+            getAllTeamsUseCase.invoke(leagueParameter)
+                .onStart {
+                    emit(ResultWrapper.Loading)
+                }.catch {
+                    emit(ResultWrapper.Error("Network error"))
+                }.flowOn(Dispatchers.IO)
+                .collect {
+                    _lvTeams.value = it
+                    _loading.value = false
 
-            }
+                }
         }
     }
 }

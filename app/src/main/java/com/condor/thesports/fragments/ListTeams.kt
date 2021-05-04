@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -21,6 +20,7 @@ import com.condor.thesports.databinding.FragmentListTeamsBinding
 import com.condor.thesports.handlers.OnTeamClick
 import com.condor.thesports.helpers.setExitToFullScreenTransition
 import com.condor.thesports.helpers.setReturnFromFullScreenTransition
+import com.condor.thesports.utils.ToastUtils
 import com.condor.thesports.viewmodels.TeamsListViewModel
 import org.koin.android.ext.android.inject
 
@@ -33,6 +33,8 @@ class ListTeams : BaseFragment(), OnTeamClick {
     private lateinit var listTeamBinding: FragmentListTeamsBinding
 
     private val teamsListViewModel: TeamsListViewModel by inject()
+
+    private val toastUtils: ToastUtils by inject()
 
     private lateinit var teamsAdapter: TeamsAdapter
 
@@ -115,22 +117,14 @@ class ListTeams : BaseFragment(), OnTeamClick {
                 leagueName = data?.getStringExtra(DATA_NAME) ?: ""
                 getTeamsLeague(leagueName)
             } else if (resultCode == Activity.RESULT_CANCELED) {
-                Toast.makeText(
-                    requireContext(),
-                    getString(R.string.canceled_action),
-                    Toast.LENGTH_LONG
-                ).show()
+                toastUtils.show(getString(R.string.canceled_action))
             }
         }
     }
 
     private fun getTeamsLeague(leagueName: String) {
         if (leagueName.isEmpty()) {
-            Toast.makeText(
-                requireContext(),
-                getString(R.string.no_league_selected),
-                Toast.LENGTH_LONG
-            ).show()
+            toastUtils.show(getString(R.string.no_league_selected))
         } else {
             teamsListViewModel.getTeams(leagueName)
             listTeamBinding.textViewLeagueTitle.text = leagueName

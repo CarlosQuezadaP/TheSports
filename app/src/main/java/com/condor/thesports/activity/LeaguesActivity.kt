@@ -9,6 +9,7 @@ import com.condor.thesports.adapter.LeagueListAdapter
 import com.condor.thesports.base.BaseActivity
 import com.condor.thesports.databinding.ActivityLeaguesBinding
 import com.condor.thesports.handlers.ISelectLeague
+import com.condor.thesports.utils.ToastUtils
 import com.condor.thesports.viewmodels.LeagueViewModel
 import org.koin.android.ext.android.inject
 
@@ -19,6 +20,7 @@ class LeaguesActivity : BaseActivity(), ISelectLeague {
     private var leaguesBinding: ActivityLeaguesBinding? = null
     private lateinit var listActivityAdapter: LeagueListAdapter
     private val leagueViewModel: LeagueViewModel by inject()
+    private val toastUtils: ToastUtils by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,11 +55,7 @@ class LeaguesActivity : BaseActivity(), ISelectLeague {
                             listActivityAdapter.submitList(resultWrapper.data)
                         }
                         is ResultWrapper.Error -> {
-                            Toast.makeText(
-                                this@LeaguesActivity,
-                                resultWrapper.message,
-                                Toast.LENGTH_SHORT
-                            ).show()
+                            toastUtils.show(resultWrapper.message)
                         }
                     }
                 })

@@ -8,7 +8,7 @@ import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import com.condor.thesports.R
-import com.condor.thesports.adapter.TeamViewHolder
+import com.condor.thesports.adapter.viewHolder.TeamViewHolder
 
 class TeamPage : Page() {
 

@@ -6,6 +6,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.condor.domain.models.EventDomain
 import com.condor.thesports.R
+import com.condor.thesports.adapter.diff.EventItemDiffCallback
+import com.condor.thesports.adapter.viewHolder.EventViewHolder
 import com.condor.thesports.databinding.ItemEventBinding
 
 class EventListAdapter :

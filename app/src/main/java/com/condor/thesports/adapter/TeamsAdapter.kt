@@ -6,6 +6,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.condor.domain.models.TeamDomain
 import com.condor.thesports.R
+import com.condor.thesports.adapter.diff.TeamItemDiffCallback
+import com.condor.thesports.adapter.viewHolder.TeamViewHolder
 import com.condor.thesports.databinding.ItemLayoutTeamsBinding
 import com.condor.thesports.handlers.OnTeamClick
 

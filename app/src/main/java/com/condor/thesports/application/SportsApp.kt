@@ -5,6 +5,7 @@ import com.condor.data.di.*
 import com.condor.thesports.di.detailModule
 import com.condor.thesports.di.leagueModule
 import com.condor.thesports.di.mainModule
+import com.condor.thesports.di.toastModule
 import com.condor.usecases.di.usecaseGetAllEvent
 import com.condor.usecases.di.usecaseGetAllLeagues
 import com.condor.usecases.di.usecaseGetAllTeams
@@ -26,23 +27,21 @@ class SportsApp : Application() {
                     mainModule,
                     detailModule,
                     leagueModule,
-
                     databaseModule,
                     networkModule,
                     converterModule,
-
                     handlerTeamRepositoriesModule,
                     handlerEventRepositoriesModule,
                     handlerLeagueRepositoriesModule,
-
                     eventRepositoryModule,
                     leagueRepositoryModule,
                     teamRepositoriesModule,
-
                     usecaseGetAllTeams,
                     usecaseGetAllEvent,
                     usecaseGetAllLeagues,
                     usecaseGetTeam,
+                    toastModule
+
                 )
             )
         }

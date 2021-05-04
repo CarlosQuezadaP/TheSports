@@ -16,6 +16,7 @@ import com.condor.thesports.R
 import com.condor.thesports.adapter.EventListAdapter
 import com.condor.thesports.base.BaseFragment
 import com.condor.thesports.databinding.FragmentDetailTeamBinding
+import com.condor.thesports.utils.ToastUtils
 import com.condor.thesports.viewmodels.TeamDetailViewModel
 import org.koin.android.ext.android.inject
 
@@ -26,6 +27,8 @@ class DetailTeamFragment : BaseFragment() {
     private lateinit var fragmentDetailBinding: FragmentDetailTeamBinding
 
     private val teamDetailViewModel: TeamDetailViewModel by inject()
+
+    private val toastUtils: ToastUtils by inject()
 
     private lateinit var eventListAdapter: EventListAdapter
 
@@ -91,7 +94,7 @@ class DetailTeamFragment : BaseFragment() {
 
                     is ResultWrapper.Error -> {
                         fragmentDetailBinding.loading.visibility = View.GONE
-                        Toast.makeText(context, teamWrapper.message, Toast.LENGTH_LONG).show()
+                        toastUtils.show(teamWrapper.message)
                     }
                 }
             })
@@ -102,6 +105,7 @@ class DetailTeamFragment : BaseFragment() {
 
                 when (eventsWrapper) {
                     is ResultWrapper.Loading -> {
+                        //TODO loading
                         var loading = ""
 
                     }
@@ -110,7 +114,7 @@ class DetailTeamFragment : BaseFragment() {
                     }
 
                     is ResultWrapper.Error -> {
-                        Toast.makeText(context, eventsWrapper.message, Toast.LENGTH_SHORT).show()
+                        toastUtils.show(eventsWrapper.message)
                     }
                 }
             })
