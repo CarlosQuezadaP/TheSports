@@ -1,11 +1,10 @@
 package com.condor.usecases.usecases
 
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.condor.core.ResultWrapper
-import com.condor.data.handler.TeamRepositoryHandler
 import com.condor.domain.models.TeamDomain
-import com.condor.usecases.builder.BuilderTeam
 import com.condor.usecases.GetAllTeamsUseCase
+import com.condor.usecases.builder.BuilderTeam
+import com.condor.usecases.repository.ITeamRepositoryHandler
 import com.condor.usecases.utils.MainCoroutineScopeRule
 import io.mockk.every
 import io.mockk.mockk
@@ -16,37 +15,38 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.*
-import org.junit.rules.TestRule
 
 @ExperimentalCoroutinesApi
 class GetAllTeamsUseCaseTest {
 
+    @get:Rule
+    val coroutineScope = MainCoroutineScopeRule()
+
+    private val repositoryHandlerFullData: ITeamRepositoryHandler = mockk()
+
+    private val teamRepositoryHandler: ITeamRepositoryHandler = mockk()
+
     lateinit var teamBuilder: BuilderTeam
 
-    private val repositoryHandlerFullData: TeamRepositoryHandler = mockk()
+    lateinit var listTeam: List<TeamDomain>
 
+    val emptyList: List<TeamDomain> = listOf()
 
     lateinit var teamSuccessDataFlow: Flow<ResultWrapper<List<TeamDomain>>>
 
-    private val teamRepositoryHandler: TeamRepositoryHandler = mockk()
-
-    private val emptyDataFlow = flowOf(ResultWrapper.Success(emptyList<TeamDomain>()))
+    private val emptyDataFlow = flowOf(ResultWrapper.Success(emptyList))
 
     private val parameterLeague = "Spanish La Liga"
-
-    @get:Rule
-    val testInstantTaskExecutorRule: TestRule = InstantTaskExecutorRule()
-
-    @get:Rule
-    val coroutineScope = MainCoroutineScopeRule()
 
     @Before
     fun setup() {
         teamBuilder = BuilderTeam()
 
+        listTeam = teamBuilder.buildAsList()
+
         teamSuccessDataFlow = flowOf(
             ResultWrapper.Success(
-                teamBuilder.buildAsList()
+                listTeam
             )
         )
 
@@ -59,30 +59,28 @@ class GetAllTeamsUseCaseTest {
         } returns emptyDataFlow
     }
 
+
     @Test
-    fun getAllTeams_responseSuccess() {
-        coroutineScope.runBlockingTest {
-            //Arrange
-            val getAllTeamsUseCase = GetAllTeamsUseCase(repositoryHandlerFullData)
-            val expectedValue = teamBuilder.buildAsList()
+    fun responseSuccess() = coroutineScope.dispatcher.runBlockingTest {
+        //Arrange
+        val getAllTeamsUseCase = GetAllTeamsUseCase(repositoryHandlerFullData)
+        val expectedValue = listTeam
 
+        //Act
+        val response: Flow<ResultWrapper<List<TeamDomain>>> =
+            getAllTeamsUseCase.invoke(parameterLeague)
 
-            //Act
-            val response: Flow<ResultWrapper<List<TeamDomain>>> =
-                getAllTeamsUseCase.invoke(parameterLeague)
-
-            //Assert
-            response.collect { value: ResultWrapper<List<TeamDomain>> ->
-                when (value) {
-                    is ResultWrapper.Loading -> {
-                        Assert.assertEquals(ResultWrapper.Loading, value)
-                    }
-                    is ResultWrapper.Success -> {
-                        Assert.assertEquals(expectedValue, value.data)
-                    }
-                    is ResultWrapper.Error -> {
-                        Assert.assertEquals(ResultWrapper.Error(""), value)
-                    }
+        //Assert
+        response.collect { value: ResultWrapper<List<TeamDomain>> ->
+            when (value) {
+                is ResultWrapper.Loading -> {
+                    Assert.assertEquals(ResultWrapper.Loading, value)
+                }
+                is ResultWrapper.Success -> {
+                    Assert.assertEquals(expectedValue, value.data)
+                }
+                is ResultWrapper.Error -> {
+                    Assert.assertEquals(ResultWrapper.Error(""), value)
                 }
             }
         }
@@ -90,11 +88,11 @@ class GetAllTeamsUseCaseTest {
 
 
     @Test
-    fun getAllTeam_validateEmptyData() {
-        coroutineScope.runBlockingTest {
+    fun validateEmptyData() =
+        coroutineScope.dispatcher.runBlockingTest {
             //Arrange
             val getAllTeamsUseCase = GetAllTeamsUseCase(teamRepositoryHandler)
-            val expectedValue = listOf<TeamDomain>()
+            val expectedValue = emptyList
             val parameter = ""
 
             //Act
@@ -116,11 +114,9 @@ class GetAllTeamsUseCaseTest {
                 }
             }
         }
-    }
 
     @After
     fun tearDown() {
         unmockkAll()
     }
-
 }

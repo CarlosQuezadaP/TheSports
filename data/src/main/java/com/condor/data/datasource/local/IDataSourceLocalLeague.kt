@@ -1,9 +1,8 @@
-package com.condor.data.repository
+package com.condor.data.datasource.local
 
 import com.condor.domain.models.LeagueDomain
 import kotlinx.coroutines.flow.Flow
 
-interface ILeagueLocalRepository {
-    fun saveLeagues(leagues: List<LeagueDomain>)
+interface IDataSourceLocalLeague {
     fun getLeagues(): Flow<List<LeagueDomain>>
 }

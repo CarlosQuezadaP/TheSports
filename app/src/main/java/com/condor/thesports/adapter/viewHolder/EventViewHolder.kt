@@ -1,4 +1,4 @@
-package com.condor.thesports.adapter
+package com.condor.thesports.adapter.viewHolder
 
 import androidx.recyclerview.widget.RecyclerView
 import com.condor.domain.models.EventDomain

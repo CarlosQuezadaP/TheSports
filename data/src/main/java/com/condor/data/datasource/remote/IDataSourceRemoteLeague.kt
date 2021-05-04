@@ -1,7 +1,7 @@
-package com.condor.data.repository
+package com.condor.data.datasource.remote
 
 import com.condor.domain.models.LeagueDomain
 
-interface ILeagueRemoteRepository {
+interface IDataSourceRemoteLeague {
     suspend fun getAllLeagues(): List<LeagueDomain>
 }

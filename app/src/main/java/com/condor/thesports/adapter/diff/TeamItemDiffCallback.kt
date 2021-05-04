@@ -1,5 +1,6 @@
-package com.condor.thesports.adapter
+package com.condor.thesports.adapter.diff
 
+import android.annotation.SuppressLint
 import androidx.recyclerview.widget.DiffUtil
 import com.condor.domain.models.TeamDomain
 

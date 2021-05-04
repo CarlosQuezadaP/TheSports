@@ -1,4 +1,4 @@
-package com.condor.thesports.adapter
+ package com.condor.thesports.adapter.diff
 
 import androidx.recyclerview.widget.DiffUtil
 import com.condor.domain.models.LeagueDomain
