@@ -9,74 +9,71 @@
             name="viewModel"
             type="com.condor.thesports.viewmodels.TeamsListViewModel" />
 
-
         <variable
             name="view"
             type="android.view.View" />
     </data>
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
+        android:layout_height="match_parent">
 
         <LinearLayout
+            android:id="@+id/ll_actionbar_select_league"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:visibility="@{viewModel.loading  ? view.GONE : view.VISIBLE}">
+            android:layout_height="?attr/actionBarSize"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:visibility="@{viewModel.loading  ? view.GONE : view.VISIBLE}"
+            android:weightSum="1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <LinearLayout
-                android:id="@+id/ll_actionbar_select_league"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="1"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <TextView
-                    android:id="@+id/textView_leagueTitle"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/multiplier_2dp"
-                    android:layout_weight="0.9"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/multiplier_10sp" />
-
-                <ImageView
-                    android:id="@+id/imageView_leagues"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.1"
-                    android:src="@drawable/ic_baseline_sports_soccer_24" />
-
-            </LinearLayout>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView_teams"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/textView_leagueTitle"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                tools:listitem="@layout/item_layout_teams" />
+                android:layout_marginStart="@dimen/multiplier_2dp"
+                android:layout_weight="0.9"
+                android:textColor="@color/white"
+                android:textSize="@dimen/multiplier_10sp" />
+
+            <ImageView
+                android:id="@+id/imageView_leagues"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.1"
+                android:contentDescription="@string/todo"
+                android:src="@drawable/ic_baseline_sports_soccer_24" />
 
         </LinearLayout>
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView_teams"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="@{viewModel.loading  ? view.GONE : view.VISIBLE}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ll_actionbar_select_league"
+            tools:listitem="@layout/item_layout_teams" />
 
         <ProgressBar
             android:id="@+id/progressBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="@dimen/multiplier_9dp"
             android:indeterminateTint="#F44336"
             android:soundEffectsEnabled="false"
-            android:visibility="@{viewModel.loading  ? view.VISIBLE : view.GONE}" />
+            android:visibility="@{viewModel.loading  ? view.VISIBLE : view.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/recyclerView_teams"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

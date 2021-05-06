@@ -1,16 +1,19 @@
 package com.condor.thesports.adapter.viewHolder
 
-import androidx.recyclerview.widget.RecyclerView
 import com.condor.domain.models.EventDomain
+import com.condor.thesports.adapter.viewHolder.base.BaseViewHolder
 import com.condor.thesports.databinding.ItemEventBinding
+import com.condor.thesports.handlers.OnClick
 
 class EventViewHolder(
-    private val itemViewBinding: ItemEventBinding,
+    private val viewDataBinding: ItemEventBinding,
+    private val OnClick: OnClick<EventDomain>?
 ) :
-    RecyclerView.ViewHolder(itemViewBinding.root) {
+    BaseViewHolder<EventDomain>(viewDataBinding) {
 
-    fun binto(eventDomain: EventDomain) {
-        itemViewBinding.textViewNameEvent.text = eventDomain.strEvent
+
+    override fun bin(data: EventDomain) {
+        viewDataBinding.textViewNameEvent.text = data.strEvent
     }
 
 }

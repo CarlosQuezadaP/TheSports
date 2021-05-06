@@ -13,4 +13,5 @@
     <string name="canceled_action">Acción cancelada!</string>
     <string name="no_league_selected">Error, liga no seleccionada</string>
     <string name="league_default">Spanish La Liga</string>
+    <string name="teams">Teams</string>
 </resources>

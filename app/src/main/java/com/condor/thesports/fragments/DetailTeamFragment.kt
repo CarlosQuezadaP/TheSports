@@ -1,12 +1,9 @@
 package com.condor.thesports.fragments
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.Toast
-import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.observe
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.condor.core.ResultWrapper
@@ -14,94 +11,83 @@ import com.condor.domain.models.EventDomain
 import com.condor.domain.models.TeamDomain
 import com.condor.thesports.R
 import com.condor.thesports.adapter.EventListAdapter
-import com.condor.thesports.base.BaseFragment
 import com.condor.thesports.databinding.FragmentDetailTeamBinding
-import com.condor.thesports.utils.ToastUtils
+import com.condor.thesports.fragments.base.BaseFragment
+import com.condor.thesports.handlers.OnClick
 import com.condor.thesports.viewmodels.TeamDetailViewModel
 import org.koin.android.ext.android.inject
 
-class DetailTeamFragment : BaseFragment() {
+class DetailTeamFragment : BaseFragment<TeamDetailViewModel, FragmentDetailTeamBinding>(),
+    OnClick<EventDomain> {
 
     private val args: DetailTeamFragmentArgs by navArgs()
 
-    private lateinit var fragmentDetailBinding: FragmentDetailTeamBinding
+    override val layoutId: Int
+        get() = R.layout.fragment_detail_team
 
-    private val teamDetailViewModel: TeamDetailViewModel by inject()
-
-    private val toastUtils: ToastUtils by inject()
+    override val viewModel: TeamDetailViewModel by inject()
 
     private lateinit var eventListAdapter: EventListAdapter
 
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-
-
-        fragmentDetailBinding = DataBindingUtil.inflate(
-            inflater,
-            R.layout.fragment_detail_team, container, false
-        )
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         val id = args.teamId
         val name = args.nameTeam
 
-        fragmentDetailBinding.toolbar.title = name
+        databinding.toolbar.title = name
 
-        teamDetailViewModel.apply {
+        viewModel.apply {
             getTeam(id)
             getEventsByTeamId(id)
         }
 
-
         setupEventRecyclerView()
-
         executeObservers()
-
-        return fragmentDetailBinding.root
     }
 
-
     private fun executeObservers() {
-        teamDetailViewModel.teamLiveData.observe(
-            viewLifecycleOwner,
-            { teamWrapper: ResultWrapper<TeamDomain> ->
+
+        viewModel.apply {
+
+            teamLiveData.observe(
+                viewLifecycleOwner
+            ) { teamWrapper: ResultWrapper<TeamDomain> ->
 
                 when (teamWrapper) {
                     is ResultWrapper.Loading -> {
-                        fragmentDetailBinding.loading.visibility = View.VISIBLE
+                        databinding.loading.visibility = View.VISIBLE
                     }
-
                     is ResultWrapper.Success -> {
 
-                        fragmentDetailBinding.loading.visibility = View.GONE
-                        fragmentDetailBinding.tvTeamFoundationYear.text =
-                            teamWrapper.data.intFormedYear
-                        fragmentDetailBinding.tvDescriptionTeamDetail.text =
-                            teamWrapper.data.strDescriptionEN
-
+                        databinding.apply {
+                            loading.visibility = View.GONE
+                            tvTeamFoundationYear.text =
+                                teamWrapper.data.intFormedYear
+                            tvDescriptionTeamDetail.text =
+                                teamWrapper.data.strDescriptionEN
+                        }
 
                         loadImage(
                             teamWrapper.data.strTeamBadge,
-                            fragmentDetailBinding.imageViewCoverPhoto
+                            databinding.imageViewCoverPhoto
                         )
                         loadImage(
                             teamWrapper.data.strTeamJersey,
-                            fragmentDetailBinding.imageViewJersey
+                            databinding.imageViewJersey
                         )
                     }
 
                     is ResultWrapper.Error -> {
-                        fragmentDetailBinding.loading.visibility = View.GONE
-                        toastUtils.show(teamWrapper.message)
+                        databinding.loading.visibility = View.GONE
+                        toastUtils.showLong(teamWrapper.message)
                     }
                 }
-            })
+            }
 
-        teamDetailViewModel.eventsLiveData.observe(
-            viewLifecycleOwner,
-            { eventsWrapper: ResultWrapper<List<EventDomain>> ->
+            eventsLiveData.observe(
+                viewLifecycleOwner
+            ) { eventsWrapper: ResultWrapper<List<EventDomain>> ->
 
                 when (eventsWrapper) {
                     is ResultWrapper.Loading -> {
@@ -114,31 +100,29 @@ class DetailTeamFragment : BaseFragment() {
                     }
 
                     is ResultWrapper.Error -> {
-                        toastUtils.show(eventsWrapper.message)
+                        toastUtils.showLong(eventsWrapper.message)
                     }
                 }
-            })
+            }
 
-        teamDetailViewModel.loading.observe(viewLifecycleOwner, { isLoading: Boolean ->
-            if (isLoading) fragmentDetailBinding.loading.visibility =
-                View.VISIBLE else fragmentDetailBinding.loading.visibility = View.GONE
-        })
+            loading.observe(viewLifecycleOwner) { isLoading: Boolean ->
+                if (isLoading) databinding.loading.visibility =
+                    View.VISIBLE else databinding.loading.visibility = View.GONE
+            }
+
+        }
     }
 
     private fun setupEventRecyclerView() {
-        eventListAdapter = EventListAdapter()
-        fragmentDetailBinding.recyclerViewTeamEvents.adapter = eventListAdapter
+        eventListAdapter = EventListAdapter(this)
+        databinding.recyclerViewTeamEvents.adapter = eventListAdapter
     }
-
-
     private fun loadImage(strUrlImage: String, imageView: ImageView) {
         Glide.with(this).load(strUrlImage)
             .placeholder(R.drawable.ic_cloud_off_black_24dp).into(imageView)
     }
 
-    override fun onDetach() {
-        teamDetailViewModel.clearViewModel()
-        super.onDetach()
+    override fun OnClick(data: EventDomain) {
     }
 
 

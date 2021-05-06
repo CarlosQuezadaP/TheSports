@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.condor.core.ResultWrapper
 import com.condor.domain.models.TeamDomain
-import com.condor.thesports.base.BaseViewModel
+import com.condor.thesports.viewmodels.base.BaseViewModel
 import com.condor.usecases.IGetAllTeamsUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch
@@ -34,7 +34,6 @@ class TeamsListViewModel(private val getAllTeamsUseCase: IGetAllTeamsUseCase) : 
                 .collect {
                     _lvTeams.value = it
                     _loading.value = false
-
                 }
         }
     }

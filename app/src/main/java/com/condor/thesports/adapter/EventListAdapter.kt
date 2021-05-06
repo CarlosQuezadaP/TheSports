@@ -1,34 +1,23 @@
 package com.condor.thesports.adapter
 
-import android.view.LayoutInflater
-import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
-import androidx.recyclerview.widget.ListAdapter
 import com.condor.domain.models.EventDomain
 import com.condor.thesports.R
-import com.condor.thesports.adapter.diff.EventItemDiffCallback
+import com.condor.thesports.adapter.base.BaseAdapterEvent
 import com.condor.thesports.adapter.viewHolder.EventViewHolder
 import com.condor.thesports.databinding.ItemEventBinding
-
-class EventListAdapter :
-    ListAdapter<EventDomain, EventViewHolder>(EventItemDiffCallback()) {
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventViewHolder {
-        val layout = DataBindingUtil.inflate(
-            LayoutInflater.from(parent.context),
-            R.layout.item_event,
-            parent,
-            false
-        ) as ItemEventBinding
+import com.condor.thesports.handlers.OnClick
 
 
-        return EventViewHolder(layout)
+class EventListAdapter(iOnClick: OnClick<EventDomain>?) :
+    BaseAdapterEvent<EventDomain, EventViewHolder, ItemEventBinding>(iOnClick) {
 
+    override val layoutId: Int
+        get() = R.layout.item_event
+
+    override fun getViewHolder(
+        databinding: ItemEventBinding,
+        iOnClick: OnClick<EventDomain>?
+    ): EventViewHolder {
+        return EventViewHolder(databinding, null)
     }
-
-    override fun onBindViewHolder(holder: EventViewHolder, position: Int) {
-        holder.binto(getItem(position))
-
-    }
-
 }

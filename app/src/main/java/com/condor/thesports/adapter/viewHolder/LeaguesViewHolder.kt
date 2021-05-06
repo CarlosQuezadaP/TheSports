@@ -1,19 +1,20 @@
 package com.condor.thesports.adapter.viewHolder
 
-import androidx.recyclerview.widget.RecyclerView
 import com.condor.domain.models.LeagueDomain
+import com.condor.thesports.adapter.viewHolder.base.BaseViewHolder
 import com.condor.thesports.databinding.LeaguesItemLayoutBinding
-import com.condor.thesports.handlers.ISelectLeague
+import com.condor.thesports.handlers.OnClick
 
 class LeaguesViewHolder(
-    private val itemViewBinding: LeaguesItemLayoutBinding,
-    private val iSelectLeague: ISelectLeague
+    private val viewDataBinding: LeaguesItemLayoutBinding,
+    private val OnClick: OnClick<LeagueDomain>
 ) :
-    RecyclerView.ViewHolder(itemViewBinding.root) {
+    BaseViewHolder<LeagueDomain>(viewDataBinding) {
 
-    fun binto(leagueDomain: LeagueDomain) {
-        itemViewBinding.league = leagueDomain
-        itemViewBinding.selectLeague = iSelectLeague
+
+    override fun bin(data: LeagueDomain) {
+        viewDataBinding.league = data
+        viewDataBinding.onClick = OnClick
     }
 
 }

@@ -2,17 +2,16 @@ package com.condor.thesports.activity
 
 import android.os.Bundle
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.condor.thesports.R
+import com.condor.thesports.activity.base.BaseActivity
 import com.condor.thesports.databinding.ActivityMainBinding
 import org.koin.androidx.fragment.android.setupKoinFragmentFactory
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity<ActivityMainBinding>() {
 
-    var mainBinding: ActivityMainBinding? = null
 
     private val navController: NavController by lazy { findNavController(R.id.fragment_nav_host) }
 
@@ -20,10 +19,10 @@ class MainActivity : AppCompatActivity() {
         setupKoinFragmentFactory()
         super.onCreate(savedInstanceState)
 
-        mainBinding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(mainBinding!!.root)
+        databinding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(databinding?.root)
 
-        val btmNavMain = mainBinding?.bottomNavigation?.apply {
+        val btmNavMain = databinding?.bottomNavigation?.apply {
             setupWithNavController(navController)
         }
 
@@ -37,11 +36,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp() || super.onSupportNavigateUp()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        mainBinding = null
     }
 
 }

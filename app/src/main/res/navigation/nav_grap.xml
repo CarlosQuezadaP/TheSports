@@ -4,20 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_grap"
     app:startDestination="@id/listTeams">
+
     <fragment
         android:id="@+id/listTeams"
         android:name="com.condor.thesports.fragments.ListTeams"
         android:label="Teams"
         tools:layout="@layout/fragment_list_teams">
-
         <action
             android:id="@+id/action_listTeams_to_detailTeamFragment"
             app:destination="@id/detailTeamFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
-
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
 
 
@@ -26,7 +25,6 @@
         android:name="com.condor.thesports.fragments.DetailTeamFragment"
         android:label="Detail team"
         tools:layout="@layout/fragment_detail_team">
-
         <argument
             android:name="teamId"
             app:argType="string" />
@@ -34,8 +32,6 @@
         <argument
             android:name="nameTeam"
             app:argType="string" />
-
     </fragment>
-
 
 </navigation>

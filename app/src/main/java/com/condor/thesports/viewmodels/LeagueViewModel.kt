@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.condor.core.ResultWrapper
 import com.condor.domain.models.LeagueDomain
-import com.condor.thesports.base.BaseViewModel
+import com.condor.thesports.viewmodels.base.BaseViewModel
 import com.condor.usecases.IGetAllLeaguesUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch

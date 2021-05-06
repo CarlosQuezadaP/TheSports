@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.condor.core.ResultWrapper
 import com.condor.domain.models.EventDomain
 import com.condor.domain.models.TeamDomain
-import com.condor.thesports.base.BaseViewModel
+import com.condor.thesports.viewmodels.base.BaseViewModel
 import com.condor.usecases.IGetAllEventsUseCase
 import com.condor.usecases.IGetTeamUseCase
 import kotlinx.coroutines.Dispatchers

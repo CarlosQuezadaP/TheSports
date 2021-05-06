@@ -1,19 +1,21 @@
 package com.condor.thesports.adapter.viewHolder
 
-import androidx.recyclerview.widget.RecyclerView
 import com.condor.domain.models.TeamDomain
+import com.condor.thesports.adapter.viewHolder.base.BaseViewHolder
 import com.condor.thesports.databinding.ItemLayoutTeamsBinding
-import com.condor.thesports.handlers.OnTeamClick
+import com.condor.thesports.handlers.OnClick
 
 class TeamViewHolder(
     private val itemViewBinding: ItemLayoutTeamsBinding,
-    private val onTeamClick: OnTeamClick
+    private val OnClick: OnClick<TeamDomain>
 ) :
-    RecyclerView.ViewHolder(itemViewBinding.root) {
+    BaseViewHolder<TeamDomain>(itemViewBinding) {
 
-    fun binto(teamitemDomain: TeamDomain) {
-        itemViewBinding.team = teamitemDomain
-        itemViewBinding.clickTeam = onTeamClick
+
+    override fun bin(data: TeamDomain) {
+        itemViewBinding.team = data
+        itemViewBinding.onClick = OnClick
     }
 
 }
+

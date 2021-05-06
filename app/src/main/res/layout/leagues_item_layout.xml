@@ -8,9 +8,8 @@
             type="com.condor.domain.models.LeagueDomain" />
 
         <variable
-            name="selectLeague"
-            type="com.condor.thesports.handlers.ISelectLeague" />
-
+            name="onClick"
+            type="com.condor.thesports.handlers.OnClick&lt;com.condor.domain.models.LeagueDomain&gt;" />
     </data>
 
     <LinearLayout
@@ -19,12 +18,11 @@
         android:gravity="center"
         android:orientation="vertical">
 
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:onClick="@{() -> selectLeague.selectLeague(league)}"
+            android:onClick="@{  () -> onClick.OnClick(league) }"
             android:text="@{league.strLeague}"
             android:textColor="@color/white"
             android:textSize="18sp" />

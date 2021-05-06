@@ -9,8 +9,8 @@
             type="com.condor.domain.models.TeamDomain" />
 
         <variable
-            name="clickTeam"
-            type="com.condor.thesports.handlers.OnTeamClick" />
+            name="onClick"
+            type="com.condor.thesports.handlers.OnClick&lt;com.condor.domain.models.TeamDomain&gt;" />
 
     </data>
 
@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/multiplier_4dp"
         android:elevation="@dimen/multiplier_5dp"
-        android:onClick="@{() -> clickTeam.onClick(team)}"
+        android:onClick="@{() -> onClick.OnClick(team)}"
         android:padding="@dimen/multiplier_2dp"
         app:cardCornerRadius="@dimen/multiplier_5dp">
 
@@ -50,7 +50,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView_teamTitle"
-                app:srcCompat="@android:drawable/ic_menu_gallery" />
+                app:srcCompat="@android:drawable/ic_menu_gallery"
+                android:contentDescription="@string/todo" />
 
 
             <TextView
