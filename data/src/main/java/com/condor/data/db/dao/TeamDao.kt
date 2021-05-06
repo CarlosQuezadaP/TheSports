@@ -16,7 +16,4 @@ interface TeamDao : BaseDao<TeamEntity> {
     @Query("SELECT * FROM team WHERE id_team = :id")
     fun getById(id: String): Flow<List<TeamEntity>>
 
-    @Transaction
-    @Query("SELECT * FROM team")
-    suspend fun getTeamWithEvents(): List<TeamWithEvents>
 }

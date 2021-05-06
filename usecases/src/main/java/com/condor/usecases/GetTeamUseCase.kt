@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.map
 class GetTeamUseCase(private val teamRepositoryRepositoryHandler: ITeamRepositoryHandler) :
     IGetTeamUseCase {
 
+    //Todo validacion de funcion
     override fun invoke(id: String): Flow<ResultWrapper<TeamDomain>> {
         return teamRepositoryRepositoryHandler.getById(id).map {
             val response: ResultWrapper<TeamDomain> = when (it) {

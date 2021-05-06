@@ -13,7 +13,7 @@ val handlerTeamRepositoriesModule = module {
     single<ITeamRepositoryHandler> {
         TeamRepositoryHandler(
             get((named("local_team"))),
-            get((named("remote_team")))
+            get()
         )
     }
 }
@@ -22,7 +22,7 @@ val handlerEventRepositoriesModule = module {
     single<IEventRepositoryHandler> {
         EventRepositoryHandler(
             get((named("local_event"))),
-            get((named("remote_event")))
+            get()
         )
     }
 }
@@ -30,7 +30,7 @@ val handlerEventRepositoriesModule = module {
 val handlerLeagueRepositoriesModule = module {
     single<ILeagueRepositoryHandler> {
         LeagueRepositoryHandler(
-            get(),
+            get((named("local_league"))),
             get()
         )
     }
