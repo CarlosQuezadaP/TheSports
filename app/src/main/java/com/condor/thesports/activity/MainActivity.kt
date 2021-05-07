@@ -12,7 +12,6 @@ import org.koin.androidx.fragment.android.setupKoinFragmentFactory
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
 
-
     private val navController: NavController by lazy { findNavController(R.id.fragment_nav_host) }
 
     override fun onCreate(savedInstanceState: Bundle?) {

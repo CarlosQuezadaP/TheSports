@@ -19,17 +19,14 @@ class TeamsListViewModel(private val getAllTeamsUseCase: IGetAllTeamsUseCase) : 
     private var _lvTeams: MutableLiveData<ResultWrapper<List<TeamDomain>>> = MutableLiveData()
     var lvTeams: LiveData<ResultWrapper<List<TeamDomain>>> = _lvTeams
 
-    private val _loading: MutableLiveData<Boolean> = MutableLiveData()
-    val loading: LiveData<Boolean> = _loading
-
     fun getTeams(leagueParameter: String) {
         _loading.value = true
         viewModelScope.launch {
             getAllTeamsUseCase.invoke(leagueParameter)
                 .onStart {
                     emit(ResultWrapper.Loading)
-                }.catch {
-                    emit(ResultWrapper.Error("Network error"))
+                }.catch { e ->
+                    emit(ResultWrapper.Error("Network error: " + e.message))
                 }.flowOn(Dispatchers.IO)
                 .collect {
                     _lvTeams.value = it

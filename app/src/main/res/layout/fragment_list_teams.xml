@@ -24,7 +24,6 @@
             android:layout_height="?attr/actionBarSize"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:visibility="@{viewModel.loading  ? view.GONE : view.VISIBLE}"
             android:weightSum="1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -54,23 +53,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:visibility="@{viewModel.loading  ? view.GONE : view.VISIBLE}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ll_actionbar_select_league"
             tools:listitem="@layout/item_layout_teams" />
 
-        <ProgressBar
-            android:id="@+id/progressBar"
+        <include
+            android:id="@+id/includedProgress"
+            layout="@layout/progress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:indeterminateTint="#F44336"
-            android:soundEffectsEnabled="false"
-            android:visibility="@{viewModel.loading  ? view.VISIBLE : view.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/recyclerView_teams"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

@@ -59,21 +59,33 @@ class ListTeams : BaseFragment<TeamsListViewModel, FragmentListTeamsBinding>(),
         setReturnFromFullScreenTransition()
     }
 
+    private fun showLoading(value: Boolean) {
+        val one = if (value) View.VISIBLE else View.GONE
+        val two = if (value) View.GONE else View.VISIBLE
+
+        databinding.apply {
+            includedProgress.progressBar.visibility = one
+            llActionbarSelectLeague.visibility = two
+            recyclerViewTeams.visibility = two
+        }
+    }
+
     private fun observeTeams() {
         viewModel.lvTeams.observe(
             viewLifecycleOwner
         ) { resultWrapper: ResultWrapper<List<TeamDomain>> ->
             when (resultWrapper) {
                 is ResultWrapper.Loading -> {
-                    //Todo mostrar loading
-
+                    showLoading(true)
                 }
                 is ResultWrapper.Success -> {
-                    val data = resultWrapper.data
-                    teamsAdapter.submitList(data)
+                    databinding.textViewLeagueTitle.text = leagueName
+                    teamsAdapter.submitList(resultWrapper.data)
+                    showLoading(false)
                 }
                 is ResultWrapper.Error -> {
-                    //Todo mostrar error
+                    showLoading(false)
+                    toastUtils.showLong(resultWrapper.message)
                 }
             }
         }
@@ -106,7 +118,6 @@ class ListTeams : BaseFragment<TeamsListViewModel, FragmentListTeamsBinding>(),
             toastUtils.showLong(getString(R.string.no_league_selected))
         } else {
             viewModel.getTeams(leagueName)
-            databinding.textViewLeagueTitle.text = leagueName
         }
     }
 

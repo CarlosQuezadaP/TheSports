@@ -6,5 +6,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface ITeamRepositoryHandler {
     fun getAll(leagueParameter: String): Flow<ResultWrapper<List<TeamDomain>>>
-    fun getById(id: String): Flow<ResultWrapper<List<TeamDomain>>>
+    fun getById(id: String): Flow<ResultWrapper<TeamDomain>>
 }

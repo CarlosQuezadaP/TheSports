@@ -28,17 +28,16 @@ class TeamDetailViewModel(
         MutableLiveData()
     var eventsLiveData: LiveData<ResultWrapper<List<EventDomain>>> = _eventsLiveData
 
-    private val _loading: MutableLiveData<Boolean> = MutableLiveData()
-    val loading: LiveData<Boolean> = _loading
-
     fun getTeam(idTeam: String) {
         viewModelScope.launch {
             iGetTeamUseCase.invoke(idTeam)
                 .onStart {
                     emit(ResultWrapper.Loading)
-                }.catch {
-                    emit(ResultWrapper.Error("Network error"))
-                }.flowOn(Dispatchers.IO)
+                }
+                .catch { e ->
+                    emit(ResultWrapper.Error("Network error: " + e.message))
+                }
+                .flowOn(Dispatchers.IO)
                 .collect {
                     _teamLiveData.value = it
                 }
@@ -50,8 +49,8 @@ class TeamDetailViewModel(
             iGetAllEventsUseCase.invoke(teamId)
                 .onStart {
                     emit(ResultWrapper.Loading)
-                }.catch {
-                    emit(ResultWrapper.Error("Network error"))
+                }.catch { e ->
+                    emit(ResultWrapper.Error("Network error: " + e.message))
                 }.flowOn(Dispatchers.IO)
                 .collect {
                     _eventsLiveData.value = it

@@ -6,8 +6,10 @@ import com.condor.data.datasource.local.ILocalRepository
 import com.condor.data.datasource.remote.IDataSourceRemoteTeam
 import com.condor.domain.models.TeamDomain
 import com.condor.usecases.repository.ITeamRepositoryHandler
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.flatMapConcat
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.map
 
 class TeamRepositoryHandler(
     iLocalRepository: ILocalRepository<TeamDomain>,
@@ -15,46 +17,34 @@ class TeamRepositoryHandler(
 ) : BaseRepositoryHandler<TeamDomain>(iLocalRepository), ITeamRepositoryHandler {
 
 
-    override fun getAll(leagueParameter: String): Flow<ResultWrapper<List<TeamDomain>>> {
-        return getAllToFlow(leagueParameter).map {
-            val response: ResultWrapper<List<TeamDomain>> = ResultWrapper.Success(it)
-            response
-        }
+    override fun getAll(leagueParameter: String) = getAllToFlow(leagueParameter).map {
+        val response: ResultWrapper<List<TeamDomain>> = ResultWrapper.Success(it)
+        response
     }
 
-    private fun getAllToFlow(leagueParameter: String): Flow<List<TeamDomain>> {
-        return flow {
-            val response: List<TeamDomain> = iDataSourceRemoteTeam.getAll(leagueParameter)
-            localSave(response)
-            emit(response)
-        }
-    }
-
-    override fun getById(id: String): Flow<ResultWrapper<List<TeamDomain>>> {
-        return iLocalRepository.getById(id).flatMapConcat { localData: List<TeamDomain> ->
-            if (localData.isNotEmpty())
-                flowOf(localData)
-            else {
+    override fun getById(id: String) =
+        iLocalRepository.getById(id).flatMapConcat { localData: List<TeamDomain> ->
+            if (localData.isNotEmpty()) {
+                flowOf(localData.get(0))
+            } else {
                 getByIdToFlow(id)
             }
         }.map {
-            val response: ResultWrapper<List<TeamDomain>> = ResultWrapper.Success(it)
+            val response: ResultWrapper<TeamDomain> = ResultWrapper.Success(it)
             response
-        }.onStart {
-            emit(ResultWrapper.Loading)
-        }.catch {
-            emit(ResultWrapper.Error("Network error"))
-        }.flowOn(Dispatchers.IO)
-    }
-
-    private fun getByIdToFlow(id: String): Flow<List<TeamDomain>> {
-        return flow {
-            val response: List<TeamDomain> = iDataSourceRemoteTeam.getById(id)
-            localSave(response)
-            emit(response)
         }
+
+    private fun getAllToFlow(leagueParameter: String) = flow {
+        val response: List<TeamDomain> = iDataSourceRemoteTeam.getAll(leagueParameter)
+        localSave(response)
+        emit(response)
     }
 
+    private fun getByIdToFlow(id: String) = flow {
+        val response: List<TeamDomain> = iDataSourceRemoteTeam.getById(id)
+        localSave(response)
+        emit(response.get(0))
+    }
 
     override suspend fun localSave(dataList: List<TeamDomain>) {
         dataList.forEach { team: TeamDomain ->

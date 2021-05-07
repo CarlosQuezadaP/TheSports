@@ -17,6 +17,7 @@ import com.condor.thesports.handlers.OnClick
 import com.condor.thesports.viewmodels.TeamDetailViewModel
 import org.koin.android.ext.android.inject
 
+//Todo al regresar
 class DetailTeamFragment : BaseFragment<TeamDetailViewModel, FragmentDetailTeamBinding>(),
     OnClick<EventDomain> {
 
@@ -91,9 +92,6 @@ class DetailTeamFragment : BaseFragment<TeamDetailViewModel, FragmentDetailTeamB
 
                 when (eventsWrapper) {
                     is ResultWrapper.Loading -> {
-                        //TODO loading
-                        var loading = ""
-
                     }
                     is ResultWrapper.Success -> {
                         eventListAdapter.submitList(eventsWrapper.data)
@@ -115,14 +113,17 @@ class DetailTeamFragment : BaseFragment<TeamDetailViewModel, FragmentDetailTeamB
 
     private fun setupEventRecyclerView() {
         eventListAdapter = EventListAdapter(this)
+        databinding
         databinding.recyclerViewTeamEvents.adapter = eventListAdapter
     }
+
     private fun loadImage(strUrlImage: String, imageView: ImageView) {
         Glide.with(this).load(strUrlImage)
             .placeholder(R.drawable.ic_cloud_off_black_24dp).into(imageView)
     }
 
     override fun OnClick(data: EventDomain) {
+
     }
 
 

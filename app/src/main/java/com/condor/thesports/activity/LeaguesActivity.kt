@@ -2,6 +2,7 @@ package com.condor.thesports.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.lifecycle.observe
 import com.condor.core.ResultWrapper
 import com.condor.domain.models.LeagueDomain
@@ -25,13 +26,15 @@ class LeaguesActivity : BaseActivityVM<LeagueViewModel, ActivityLeaguesBinding>(
         databinding = ActivityLeaguesBinding.inflate(layoutInflater)
         setContentView(databinding?.root)
 
+        databinding?.apply {
+            viewModel = this@LeaguesActivity.viewModel
+            imageButtonClose.setOnClickListener {
+                finish()
+            }
+        }
         setAdapter()
-
         observeLeagues()
 
-        databinding?.imageButtonClose?.setOnClickListener {
-            finish()
-        }
     }
 
     private fun setAdapter() {
@@ -47,16 +50,30 @@ class LeaguesActivity : BaseActivityVM<LeagueViewModel, ActivityLeaguesBinding>(
             ) { resultWrapper: ResultWrapper<List<LeagueDomain>> ->
                 when (resultWrapper) {
                     is ResultWrapper.Loading -> {
-                        //Todo mostrar loading
+                        showLoading(true)
                     }
                     is ResultWrapper.Success -> {
                         listActivityAdapter.submitList(resultWrapper.data)
+                        showLoading(false)
                     }
                     is ResultWrapper.Error -> {
+                        showLoading(false)
                         toastUtils.showLong(resultWrapper.message)
                     }
                 }
             }
+        }
+    }
+
+    private fun showLoading(value: Boolean) {
+
+        val one = if (value) View.VISIBLE else View.GONE
+        val two = if (value) View.GONE else View.VISIBLE
+
+        databinding?.apply {
+            includedProgress.progressBar.visibility = one
+            llContent.visibility = two
+            imageButtonClose.visibility = two
         }
     }
 

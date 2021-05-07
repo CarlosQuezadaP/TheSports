@@ -42,6 +42,7 @@ class Converter : IConverter {
 
     }
 
+    //Todo validar datos nulos
     override fun convertTeamDtoToDomain(teamDto: TeamDto): TeamDomain {
         return TeamDomain(
             teamDto.idTeam,
@@ -76,6 +77,7 @@ class Converter : IConverter {
             teamDomain.strYoutube
         )
     }
+
 
     override fun convertTeamEntityToDomain(teamEntity: TeamEntity): TeamDomain {
         return TeamDomain(

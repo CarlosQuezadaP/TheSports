@@ -25,8 +25,8 @@ class LeagueViewModel(private val iGetAllLeaguesUseCase: IGetAllLeaguesUseCase) 
             iGetAllLeaguesUseCase.invoke()
                 .onStart {
                     emit(ResultWrapper.Loading)
-                }.catch {
-                    emit(ResultWrapper.Error("League error"))
+                }.catch { e ->
+                    emit(ResultWrapper.Error("Network error: " + e.message))
                 }.flowOn(Dispatchers.IO)
                 .collect {
                     _lvLeagues.value = it

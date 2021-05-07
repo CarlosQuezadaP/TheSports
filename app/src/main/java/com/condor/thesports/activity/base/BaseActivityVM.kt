@@ -6,7 +6,6 @@ import com.condor.thesports.viewmodels.base.BaseViewModel
 
 abstract class BaseActivityVM<out VM : BaseViewModel, DB : ViewDataBinding> : BaseActivity<DB>() {
 
-
     open val viewModel: VM? = null
 
     override fun onDestroy() {
@@ -14,5 +13,4 @@ abstract class BaseActivityVM<out VM : BaseViewModel, DB : ViewDataBinding> : Ba
         viewModel?.clearViewModel()
         databinding = null
     }
-
 }

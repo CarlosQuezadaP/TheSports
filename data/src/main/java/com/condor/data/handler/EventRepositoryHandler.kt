@@ -6,7 +6,10 @@ import com.condor.data.datasource.local.ILocalRepository
 import com.condor.data.datasource.remote.IDataSourceRemoteEvent
 import com.condor.domain.models.EventDomain
 import com.condor.usecases.repository.IEventRepositoryHandler
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.flatMapConcat
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.map
 
 class EventRepositoryHandler constructor(
     iLocalRepository: ILocalRepository<EventDomain>,
@@ -19,8 +22,8 @@ class EventRepositoryHandler constructor(
         }
     }
 
-    override fun getById(id: String): Flow<ResultWrapper<List<EventDomain>>> {
-        return iLocalRepository.getById(id).flatMapConcat { localData: List<EventDomain> ->
+    override fun getById(id: String) =
+        iLocalRepository.getById(id).flatMapConcat { localData: List<EventDomain> ->
             if (localData.isNotEmpty())
                 flowOf(localData)
             else {
@@ -30,14 +33,11 @@ class EventRepositoryHandler constructor(
             val response: ResultWrapper<List<EventDomain>> = ResultWrapper.Success(it)
             response
         }
-    }
 
-    private fun getByIdToFlow(id: String): Flow<List<EventDomain>> {
-        return flow {
-            val response: List<EventDomain> = iDataSourceRemoteEvent.getById(id)
-            localSave(response)
-            emit(response)
-        }
+    private fun getByIdToFlow(id: String) = flow {
+        val response: List<EventDomain> = iDataSourceRemoteEvent.getById(id)
+        localSave(response)
+        emit(response)
     }
 
 }
