@@ -42,7 +42,6 @@ class Converter : IConverter {
 
     }
 
-    //Todo validar datos nulos
     override fun convertTeamDtoToDomain(teamDto: TeamDto): TeamDomain {
         return TeamDomain(
             teamDto.idTeam,
@@ -50,13 +49,13 @@ class Converter : IConverter {
         ).apply {
             intFormedYear = teamDto.intFormedYear
             strStadium = teamDto.strStadium
-            strWebsite = teamDto.strWebsite
-            strFacebook = teamDto.strFacebook
-            strTwitter = teamDto.strTwitter
-            strInstagram = teamDto.strInstagram
+            strWebsite = validateString(teamDto.strWebsite)
+            strFacebook = validateString(teamDto.strFacebook)
+            strTwitter = validateString(teamDto.strTwitter)
+            strInstagram = validateString(teamDto.strInstagram)
             strDescriptionEN = teamDto.strDescriptionEN
-            strTeamBadge = teamDto.strTeamBadge
-            strTeamJersey = teamDto.strTeamJersey
+            strTeamBadge = validateString(teamDto.strTeamBadge)
+            strTeamJersey = validateString(teamDto.strTeamJersey)
             strYoutube = teamDto.strYoutube
         }
     }
@@ -67,14 +66,14 @@ class Converter : IConverter {
             teamDomain.strTeam,
             teamDomain.intFormedYear,
             teamDomain.strStadium,
-            teamDomain.strWebsite,
-            teamDomain.strFacebook,
-            teamDomain.strTwitter,
-            teamDomain.strInstagram,
+            validateString(teamDomain.strWebsite),
+            validateString(teamDomain.strFacebook),
+            validateString(teamDomain.strTwitter),
+            validateString(teamDomain.strInstagram),
             teamDomain.strDescriptionEN,
-            teamDomain.strTeamBadge,
-            teamDomain.strTeamJersey,
-            teamDomain.strYoutube
+            validateString(teamDomain.strTeamBadge),
+            validateString(teamDomain.strTeamJersey),
+            validateString(teamDomain.strYoutube),
         )
     }
 
@@ -86,15 +85,17 @@ class Converter : IConverter {
         ).apply {
             intFormedYear = teamEntity.int_formedYear
             strStadium = teamEntity.strS_stadium
-            strWebsite = teamEntity.str_website
-            strFacebook = teamEntity.str_facebook
-            strTwitter = teamEntity.str_twitter
-            strInstagram = teamEntity.str_instagram
+            strWebsite = validateString(teamEntity.str_website)
+            strFacebook = validateString(teamEntity.str_facebook)
+            strTwitter = validateString(teamEntity.str_twitter)
+            strInstagram = validateString(teamEntity.str_instagram)
             strDescriptionEN = teamEntity.str_descriptionEN
-            strTeamBadge = teamEntity.str_teamBadge
-            strTeamJersey = teamEntity.st_teamJersey
+            strTeamBadge = validateString(teamEntity.str_teamBadge)
+            strTeamJersey = validateString(teamEntity.st_teamJersey)
             strYoutube = teamEntity.str_youtube
         }
     }
+
+    private fun validateString(value: String?) = value ?: ""
 
 }

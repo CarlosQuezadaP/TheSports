@@ -35,7 +35,7 @@ class TeamDetailViewModel(
                     emit(ResultWrapper.Loading)
                 }
                 .catch { e ->
-                    emit(ResultWrapper.Error("Network error: " + e.message))
+                    emit(ResultWrapper.Error("Network error: ${e.message}"))
                 }
                 .flowOn(Dispatchers.IO)
                 .collect {
@@ -50,7 +50,7 @@ class TeamDetailViewModel(
                 .onStart {
                     emit(ResultWrapper.Loading)
                 }.catch { e ->
-                    emit(ResultWrapper.Error("Network error: " + e.message))
+                    emit(ResultWrapper.Error("Network error: ${e.message}"))
                 }.flowOn(Dispatchers.IO)
                 .collect {
                     _eventsLiveData.value = it

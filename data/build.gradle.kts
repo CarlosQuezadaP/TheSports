@@ -48,4 +48,12 @@ dependencies {
     implementation(Libs.Room.runtime)
     implementation(Libs.Room.ktx)
     kapt(Libs.Room.kaptcompiler)
+
+    //Test
+    testImplementation(appdependencies.Libs.Testing.junit)
+    testImplementation(appdependencies.Libs.Testing.coroutines_test)
+    testImplementation(appdependencies.Libs.Testing.core_testing)
+    testImplementation(appdependencies.Libs.Testing.mock_io)
+    androidTestImplementation(appdependencies.Libs.Testing.mock_io_android)
+
 }
