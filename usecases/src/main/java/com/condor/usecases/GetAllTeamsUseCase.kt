@@ -7,7 +7,9 @@ import kotlinx.coroutines.flow.Flow
 
 class GetAllTeamsUseCase(private val iTeamRepositoryHandler: ITeamRepositoryHandler) :
     IGetAllTeamsUseCase {
-    override fun invoke(leagueParameter: String) = iTeamRepositoryHandler.getAll(leagueParameter)
+    override fun invoke(leagueParameter: String): Flow<ResultWrapper<List<TeamDomain>>> {
+        return iTeamRepositoryHandler.getAll(leagueParameter)
+    }
 }
 
 interface IGetAllTeamsUseCase {

@@ -47,16 +47,16 @@ class Converter : IConverter {
             teamDto.idTeam,
             teamDto.strTeam
         ).apply {
-            intFormedYear = teamDto.intFormedYear
-            strStadium = teamDto.strStadium
+            intFormedYear = validateString(teamDto.intFormedYear)
+            strStadium = validateString(teamDto.strStadium)
             strWebsite = validateString(teamDto.strWebsite)
             strFacebook = validateString(teamDto.strFacebook)
             strTwitter = validateString(teamDto.strTwitter)
             strInstagram = validateString(teamDto.strInstagram)
-            strDescriptionEN = teamDto.strDescriptionEN
+            strDescriptionEN = validateString(teamDto.strDescriptionEN)
             strTeamBadge = validateString(teamDto.strTeamBadge)
             strTeamJersey = validateString(teamDto.strTeamJersey)
-            strYoutube = teamDto.strYoutube
+            strYoutube = validateString(teamDto.strYoutube)
         }
     }
 
@@ -66,14 +66,14 @@ class Converter : IConverter {
             teamDomain.strTeam,
             teamDomain.intFormedYear,
             teamDomain.strStadium,
-            validateString(teamDomain.strWebsite),
-            validateString(teamDomain.strFacebook),
-            validateString(teamDomain.strTwitter),
-            validateString(teamDomain.strInstagram),
+            teamDomain.strWebsite,
+            teamDomain.strFacebook,
+            teamDomain.strTwitter,
+            teamDomain.strInstagram,
             teamDomain.strDescriptionEN,
-            validateString(teamDomain.strTeamBadge),
-            validateString(teamDomain.strTeamJersey),
-            validateString(teamDomain.strYoutube),
+            teamDomain.strTeamBadge,
+            teamDomain.strTeamJersey,
+            teamDomain.strYoutube
         )
     }
 
@@ -85,13 +85,13 @@ class Converter : IConverter {
         ).apply {
             intFormedYear = teamEntity.int_formedYear
             strStadium = teamEntity.strS_stadium
-            strWebsite = validateString(teamEntity.str_website)
-            strFacebook = validateString(teamEntity.str_facebook)
-            strTwitter = validateString(teamEntity.str_twitter)
-            strInstagram = validateString(teamEntity.str_instagram)
+            strWebsite = teamEntity.str_website
+            strFacebook = teamEntity.str_facebook
+            strTwitter = teamEntity.str_twitter
+            strInstagram = teamEntity.str_instagram
             strDescriptionEN = teamEntity.str_descriptionEN
-            strTeamBadge = validateString(teamEntity.str_teamBadge)
-            strTeamJersey = validateString(teamEntity.st_teamJersey)
+            strTeamBadge = teamEntity.str_teamBadge
+            strTeamJersey = teamEntity.st_teamJersey
             strYoutube = teamEntity.str_youtube
         }
     }

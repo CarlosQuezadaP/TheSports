@@ -26,7 +26,7 @@ class TeamsListViewModel(private val getAllTeamsUseCase: IGetAllTeamsUseCase) : 
                 .onStart {
                     emit(ResultWrapper.Loading)
                 }.catch { e ->
-                    emit(ResultWrapper.Error("Network error: ${e.message}"))
+                    emit(ResultWrapper.Error("Teams error: ${e.message}"))
                 }.flowOn(Dispatchers.IO)
                 .collect {
                     _lvTeams.value = it

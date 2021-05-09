@@ -11,19 +11,34 @@ class DataSourceRemoteTeam(
 ) : IDataSourceRemoteTeam {
 
     override suspend fun getAll(leagueParameter: String): List<TeamDomain> {
-        return sportService.getAllTeams(leagueParameter).teams.map {
+
+        val response = sportService.getAllTeams(leagueParameter)
+
+        val teamsDto = response.teams ?: throw Exception("No teams for this category")
+
+        return teamsDto.map {
             iConverter.convertTeamDtoToDomain(it)
         }
     }
 
     override suspend fun getById(id: String): List<TeamDomain> {
-        return sportService.getTeam(id).teams.map {
+
+        val response = sportService.getTeam(id)
+
+        val teamsDto = response.teams ?: throw Exception("No teams for this category")
+
+        return teamsDto.map {
             iConverter.convertTeamDtoToDomain(it)
         }
     }
 
     override suspend fun getEventsById(id: String): List<EventDomain> {
-        return sportService.getAllEventsByTeamId(id).results.map {
+
+        val response = sportService.getAllEventsByTeamId(id)
+
+        val eventsDto = response.results ?: throw Exception("No Events to show")
+
+        return eventsDto.map {
             iConverter.convertEventDtoToDomain(it)
         }
     }

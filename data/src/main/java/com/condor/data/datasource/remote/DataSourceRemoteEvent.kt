@@ -10,7 +10,12 @@ class DataSourceRemoteEvent(
 ) :
     IDataSourceRemoteEvent {
     override suspend fun getById(id: String): List<EventDomain> {
-        return sportService.getAllEventsByTeamId(id).results.map {
+
+        val response = sportService.getAllEventsByTeamId(id)
+
+        val eventsDto = response.results ?: throw Exception("No Events to show")
+
+        return eventsDto.map {
             iConverter.convertEventDtoToDomain(it)
         }
     }
